@@ -1,0 +1,11 @@
+this whole thing took me about 3 hours to implement
+i decided to make the dfa an object with several parts to allow it to be more easily changed and reusable in future assignments
+i also decided that i wanted to make functions to make getting (and in the future, setting) the dfa data simpler from a human standpoint
+
+
+DFA Data Representation: -------------
+dfa is an object
+i made the states a list of strings
+i made the alphabet a list of strings
+i made the delta function a list of lists of strings where the inner lists are transitions in the format start state, input, end state
+i made start state a stringsi made the accept states a list of strings
