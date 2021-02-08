@@ -31,11 +31,12 @@ class DFA:
         root = ET.Element("automaton")
         for thing in self.Q:
             state = ET.Element("state")
+            state.set("id", str(thing[0]))
+            state.set("name", thing[1])
             root.append(state)
             if thing[0] == self.q0:
                 initialTagger = ET.Element("initial")
                 state.append(initialTagger)
-            
             if thing[0] in self.F:
                 finalTagger = ET.Element("final")
                 state.append(finalTagger)
