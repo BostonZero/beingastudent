@@ -58,8 +58,8 @@ class DFA:
         tree = ET.ElementTree(root) 
         with open ("genned.xml", "wb") as files : 
             tree.write(files)
-       ## xmlstr = ET.tostring( )
-        print(automaton)
+        xmlstr = ET.tostring(element=automaton, encoding='unicode', method='xml')
+        print(xmlstr)
 
 
 myDFA = DFA()
