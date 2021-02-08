@@ -1,3 +1,6 @@
 the first part was easily editable to get working from hw1
 the second part, dfalang has taken 6 hours so far to make work. i have it entirely working on my machine but uploading created all kinds of errors i dont understand
+figured out the issue, there was a structure change in the xml file and my program also did not check for empty input 
+for xml i had little to no issue once i found a good website that taught the xml building functions. until it came to uploading. there is an issue when converting to string where i had to specify tostring to unicode otherwise it passes as a bytestring which your autograder doesnt like
+
 inconsistently breaking my old file somehow
