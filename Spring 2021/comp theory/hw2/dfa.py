@@ -63,8 +63,8 @@ inputData = sys.stdin.readline()
 #inputString                                     ## this will be loaded with the input string
 inputCursor = 0                                  ## this is a cursor for the input string so i can keep track of whats been calculated
 
-if inputData[-1] == "\n":
-    inputData = inputData[:-1]                       ##pesky newline handler
+#if inputData[-1] == "\n":
+#    inputData = inputData[:-1]                       ##pesky newline handler
 
 
 if inputData == "states":

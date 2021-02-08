@@ -1,6 +1,7 @@
 import sys
 import xml.etree.ElementTree as ET
-
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning) 
 
 
 class DFA:
@@ -14,9 +15,11 @@ class DFA:
     #currentState = q0                           ## this starts on q0 and will be changed as the dfa is calculated
 
     def pullXML(self,filename):
-        #tree = ET.parse("test.xml")
         tree = ET.parse(filename)
-        root = tree.find("automaton")
+        if tree.getroot().tag == "automaton":
+            root = tree
+        else:
+            root = tree.find("automaton")
 
         for child in root.findall("state"):
             stateData = child.attrib
@@ -62,7 +65,9 @@ class DFA:
         self.setCurrentState(self.q0)
         if inString == "":
             #print("reject")
-            return 0        
+            if self.currentState in self.F:
+                return 1
+            else: return 0        
         for transitionCode in inString:
             for set in self.delta:
                 if (str(set[0]) == str(self.currentState) and set[1] == transitionCode):     ##find the correct list to reference
@@ -75,16 +80,19 @@ class DFA:
         #print("reject")
         return 0
 
-
+debugMode = 0
 myDFA = DFA()
-inputData = sys.stdin.readline()
+if debugMode == 1:
+    inputData = 'test.xml'
+elif debugMode == 0:
+    inputData = sys.stdin.readline()
+#inputData = sys.argv[1]
+#inputData = "null"
 
-myDFA.pullXML(inputData)
-inputData = "null"
 #inputString                                     ## this will be loaded with the input string
-# if inputData[-1] == "\n":
-#     inputData = inputData[:-1]                       ##pesky newline handler
-
+#if inputData[-1] == "\n":
+#    inputData = inputData[:-1]                       ##pesky newline handler
+myDFA.pullXML(inputData)
 
 # if inputData == "states":
 #     myDFA.getQ()
@@ -98,8 +106,51 @@ inputData = "null"
 #     myDFA.getF()
 # else:
 #     inputString = inputData
-
-
+# dictionary = [
+# "",
+# "00001",
+# "00011",
+# "00100",
+# "00101",
+# "00111",
+# "01001",
+# "01011",
+# "01100",
+# "01101",
+# "01111",
+# "10000",
+# "10001",
+# "10011",
+# "10100",
+# "10101",
+# "10111",
+# "11001",
+# "11011",
+# "11100",
+# "11101",
+# "11111",
+# "0001",
+# "0011",
+# "0100",
+# "0101",
+# "0111",
+# "1001",
+# "1011",
+# "1100",
+# "1101",
+# "1111",
+# "001",
+# "011",
+# "100",
+# "101",
+# "111",
+# "01",
+# "11",
+# "1"
+# ]
+# for test in dictionary:
+#     print(test)
+# ###
 
 for a in myDFA.sigma:
     for b in myDFA.sigma:
@@ -108,26 +159,40 @@ for a in myDFA.sigma:
                 for e in myDFA.sigma:
                     eset = [a,b,c,d,e]
                     if myDFA.run(eset) == 1:
+                            theStr = ""
                             for letter in eset:
-                                print(letter, end='')
-                            print()
+                                theStr += letter
+                            print(theStr,end='\n')
                 dset = [a,b,c,d]
                 if myDFA.run(dset) == 1:
+                            theStr = ""
                             for letter in dset:
-                                print(letter, end='')
-                            print()
+                                theStr += letter
+                            print(theStr,end='\n')
+  
             cset = [a,b,c]
             if myDFA.run(cset) == 1:
+                            theStr = ""
                             for letter in cset:
-                                print(letter, end='')
-                            print()  
+                                theStr += letter
+                            print(theStr,end='\n')
+   
         bset = [a,b]
         if myDFA.run(bset) == 1:
+                            theStr = ""
                             for letter in bset:
-                                print(letter, end='')
-                            print()       
+                                theStr += letter
+                            print(theStr,end='\n')
+      
     aset = [a]
     if myDFA.run(aset) == 1:
-        for letter in aset:
-            print(letter, end='')
-        print()
+                            theStr = ""
+                            for letter in aset:
+                                theStr += letter
+                            print(theStr,end='\n')
+
+if myDFA.run("") == 1:
+    print("")
+
+#for i in range(0,len(dictionary)):
+#        print(dictionary.pop())
