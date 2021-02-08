@@ -10,8 +10,8 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "cwd" : "${workspaceFolder}/${relativeFileDirname}"
-            //"args": ["test.xml"]
+            "cwd" : "${workspaceFolder}/${relativeFileDirname}",
+            "args": ["test1.xml","test2.xml"]
         }
     ]
 }

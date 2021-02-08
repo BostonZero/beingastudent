@@ -1,0 +1,43 @@
+<automaton>
+<link type="text/css" rel="stylesheet" id="dark-mode-custom-link"/>
+<link type="text/css" rel="stylesheet" id="dark-mode-general-link"/>
+<style lang="en" type="text/css" id="dark-mode-custom-style"/>
+<style lang="en" type="text/css" id="dark-mode-native-style"/>
+<state id="1" name="1">
+<initial/>
+</state>
+<state id="2" name="2">
+<final/>
+</state>
+<state id="3" name="3"/>
+<transition>
+<from>1</from>
+<to>2</to>
+<read>b</read>
+</transition>
+<transition>
+<from>1</from>
+<to>3</to>
+<read>a</read>
+</transition>
+<transition>
+<from>2</from>
+<to>3</to>
+<read>a</read>
+</transition>
+<transition>
+<from>2</from>
+<to>3</to>
+<read>b</read>
+</transition>
+<transition>
+<from>3</from>
+<to>3</to>
+<read>a</read>
+</transition>
+<transition>
+<from>3</from>
+<to>3</to>
+<read>b</read>
+</transition>
+</automaton>
