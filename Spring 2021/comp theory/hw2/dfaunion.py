@@ -127,4 +127,5 @@ elif debugMode == 0:
 dfa1.pullXML(inputData[0])
 dfa2.pullXML(inputData[1])
 
+
 print('done')
