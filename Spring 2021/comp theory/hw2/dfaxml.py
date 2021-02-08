@@ -28,12 +28,14 @@ class DFA:
 
     def genXML(self):
 
-        root = ET.Element("automaton")
+        root = ET.Element("structure")
+        automaton = ET.Element("automaton")
+        root.append(automaton)
         for thing in self.Q:
             state = ET.Element("state")
             state.set("id", str(thing[0]))
             state.set("name", thing[1])
-            root.append(state)
+            automaton.append(state)
             if thing[0] == self.q0:
                 initialTagger = ET.Element("initial")
                 state.append(initialTagger)
@@ -51,12 +53,13 @@ class DFA:
             transition.append(fromTag)
             transition.append(toTag)
             transition.append(readTag)
-            root.append(transition)
+            automaton.append(transition)
 
         tree = ET.ElementTree(root) 
         with open ("genned.xml", "wb") as files : 
-            tree.write(files) 
-
+            tree.write(files)
+       ## xmlstr = ET.tostring( )
+        print(automaton)
 
 
 myDFA = DFA()
