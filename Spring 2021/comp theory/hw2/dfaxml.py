@@ -40,8 +40,20 @@ class DFA:
             if thing[0] in self.F:
                 finalTagger = ET.Element("final")
                 state.append(finalTagger)
+        for transSet in self.delta:
+            transition = ET.Element("transition")
+            fromTag = ET.Element("from")
+            toTag = ET.Element("to")
+            readTag = ET.Element("read")
+            fromTag.text = str(transSet[0])
+            toTag.text = str(transSet[2])
+            readTag.text = str(transSet[1])
+            transition.append(fromTag)
+            transition.append(toTag)
+            transition.append(readTag)
+            root.append(transition)
+
         tree = ET.ElementTree(root) 
-      
         with open ("genned.xml", "wb") as files : 
             tree.write(files) 
 
