@@ -2,6 +2,7 @@ import sys
 import xml.etree.ElementTree as ET
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning) 
+import itertools
 
 
 class DFA(object):
@@ -126,6 +127,16 @@ elif debugMode == 0:
 
 dfa1.pullXML(inputData[0])
 dfa2.pullXML(inputData[1])
+
+for state1 in dfa1.Q:                                      ##build Q states
+    for state2 in dfa2.Q:
+        stateStr = str(state1[0]) + "-" + str(state2[0])
+        dfa3.Q.append(stateStr)
+dfa3.q0 = str(dfa1.q0) + "-" + str(dfa2.q0)                 ##build q0 state
+dfa3.sigma = dfa1.sigma                                     ##alphabet should be the same
+
+
+##do something like iterating through input, calculating the transition and saving it
 
 
 print('done')

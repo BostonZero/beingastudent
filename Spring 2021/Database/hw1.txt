@@ -1,0 +1,2 @@
+1.)
+a.) πyear(πbid((πcid(σzipcode=02125 Customers))⨝ Orders)⨝ Books)
