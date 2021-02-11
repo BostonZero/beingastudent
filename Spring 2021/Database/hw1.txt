@@ -4,16 +4,17 @@
     c.) ρbadbooks(πcid((πbid(σyear<1990 Books))⨝ Orders))
         πcname(((πcid Orders)- badbooks)⨝ Customers)
     d.) (πcname((πcid((πbid(σauthor=Edgar Codd Books))⨝ Orders))⨝ Customers)) ∪ (πcname((πcid(σquantity>9((πbid(σbname=Databases Books))⨝ Orders)))⨝ Customers))
-    e.) 
-    f.) 
+    e.) --
+    f.) --
 2.)     
     a.) πpname((πpid(σprice<801((πfid(σaircraft=B787 Flights))⨝ Tickets)))⨝ Passengers)
-    b.)  
-    c.) 
+    b.) ρnotboston((πfid(σfrom¬BOS∧to¬BOS Flight))⨝ Tickets)
+        πage((πpid((σ Tickets)- notboston))⨝ Passengers)
+    c.) πprice((πfid(σaircraft=B777 Flights))⨝ Tickets)
     d.) 
-    e.) 
-    f.) 
+    e.) --
+    f.) --
 
 //TODO: 
-    //problem 1 (1 remain)
+    //problem 1 (2 remain)
     //problem 2 (4 remain)
