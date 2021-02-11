@@ -11,10 +11,10 @@
     b.) ρnotboston((πfid(σfrom¬BOS∧to¬BOS Flight))⨝ Tickets)
         πage((πpid((σ Tickets)- notboston))⨝ Passengers)
     c.) πprice((πfid(σaircraft=B777 Flights))⨝ Tickets)
-    d.) 
+    d.) πcity((πpid((σprice<501 Tickets)∪((πfid(σmiles>500 Flights))⨝ Tickets)))⨝ Passengers)
     e.) --
     f.) --
 
 //TODO: 
     //problem 1 (2 remain)
-    //problem 2 (4 remain)
+    //problem 2 (2 remain)
