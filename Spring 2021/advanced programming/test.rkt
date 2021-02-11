@@ -1,11 +1,12 @@
 #lang racket
-(+
-    (+
-        (* 11 15)
-        (+ 14 4))
+(define l1 (list 1 2 4 8 16 32 64))
+(define l2 (list 1 2 3 4 5 6 7))
+(require rackunit)
+(define (point x y z)
+    (list x y z))
 
-    (-
-        (/ 3 9)
-        (* 14 3)))
+(define p (point 1 2 3))
 
+(list-ref p 2)
 
+;;;05-01 1603
