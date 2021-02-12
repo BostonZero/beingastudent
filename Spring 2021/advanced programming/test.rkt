@@ -9,4 +9,4 @@
 
 (list-ref p 2)
 
-;;;05-01 1603
+(quote (lambda 1 1 1))
