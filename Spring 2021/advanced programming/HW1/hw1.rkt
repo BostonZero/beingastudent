@@ -43,6 +43,9 @@
 ;; Function that inserts a value in a BST
 (define (bst-insert self value) 'todo)
 
+
+
+
 ;; lambda
 (define (lambda? node) 'todo)
 (define (lambda-params node) 'todo)
