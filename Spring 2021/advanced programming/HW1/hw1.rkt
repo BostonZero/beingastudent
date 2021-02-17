@@ -26,9 +26,13 @@
 ;2/3
 
 ;; Constructs a tree from two trees and a value
-(define (tree left value right) )
+(define (tree left value right) 
+	(list left value right)
+)
 ;; Constructs a tree with a single node
-(define (tree-leaf value) 'todo)
+(define (tree-leaf value) 
+	(list (null) value (null))
+)
 
 ;; Accessors
 (define (tree-left self) (first self))
@@ -41,7 +45,27 @@
 (define (tree-set-right self right) (tree (tree-left self) (tree-value self) right))
 
 ;; Function that inserts a value in a BST
-(define (bst-insert self value) 'todo)
+(define (bst-insert self value) 
+	(cond
+		[(equal? (tree-value self) (null?)) (tree-leaf value)];;empty, make a leaf
+		[(equal? (tree-value self) value) self];;correct value already exists, return self
+		[(< value (tree-value self)) (tree 
+										(bst-insert (tree-left self value)) 
+										(tree-value self) 
+										(tree-right self))];;less than val
+		[(> value (tree-value self)) (tree
+										(tree-left self) 
+										(tree-value self) 
+										(bst-insert (tree-right self value)))];;greater than val
+
+	
+	)
+
+
+
+
+
+)
 
 
 
