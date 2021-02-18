@@ -1,9 +1,6 @@
 #lang racket
 ;1/1/a
-
-
 (provide (all-defined-out))
-
 (define ex1
     (+
 	    (+ 15 (+ 4 10))
@@ -21,8 +18,10 @@
         (+ 29 5/2)
 		63/2))
 ;1/2
-(define ex3 (lambda (x y) (not (< (+ (- 12 14) x) (* (* y x) (* y x))))))
-
+(define (ex3 x y)
+        (>= (+ (- 12 14) x)
+           (* (* y x) (* y x))
+           ))
 ;2/3
 
 ;; Constructs a tree from two trees and a value
@@ -31,13 +30,13 @@
 )
 ;; Constructs a tree with a single node
 (define (tree-leaf value) 
-	(list (null) value (null))
+	(list '() value '())
 )
 
 ;; Accessors
-(define (tree-left self) (first self))
-(define (tree-value self) (second self))
-(define (tree-right self) (third self))
+(define (tree-left self) (list-ref self 0))
+(define (tree-value self) (list-ref self 1))
+(define (tree-right self) (list-ref self 2))
 
 ;; Copies the source and updates one of the fields
 (define (tree-set-value self value) (tree (tree-left self) value (tree-right self)))
@@ -47,29 +46,18 @@
 ;; Function that inserts a value in a BST
 (define (bst-insert self value) 
 	(cond
-		[(equal? (tree-value self) (null?)) (tree-leaf value)];;empty, make a leaf
+		[(empty? self) (tree-leaf value)];;empty, make a leaf
 		[(equal? (tree-value self) value) self];;correct value already exists, return self
 		[(< value (tree-value self)) (tree 
-										(bst-insert (tree-left self value)) 
+										(bst-insert (tree-left self) value) 
 										(tree-value self) 
 										(tree-right self))];;less than val
 		[(> value (tree-value self)) (tree
 										(tree-left self) 
 										(tree-value self) 
-										(bst-insert (tree-right self value)))];;greater than val
-
-	
+										(bst-insert (tree-right self) value))];;greater than val
 	)
-
-
-
-
-
 )
-
-
-
-
 ;; lambda
 (define (lambda? node) 'todo)
 (define (lambda-params node) 'todo)
