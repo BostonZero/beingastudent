@@ -26,12 +26,10 @@
 
 ;; Constructs a tree from two trees and a value
 (define (tree left value right) 
-	(list left value right)
-)
+	(list left value right))
 ;; Constructs a tree with a single node
 (define (tree-leaf value) 
-	(list '() value '())
-)
+	(list '() value '()))
 
 ;; Accessors
 (define (tree-left self) (list-ref self 0))
