@@ -1,0 +1,37 @@
+#lang racket
+(require rackunit)
+
+(define (lambda? node) 
+	(and 
+				(not (empty? node))
+                (symbol? (list-ref node 0))
+				(equal? (list-ref node 0) 'lambda)
+				(list? (rest node))
+				
+	
+	)
+	
+)
+
+
+(define (lambda-params node) 'todo)
+(define (lambda-body node) 'todo)
+
+
+(check-false (lambda? '()))
+(check-false (lambda? '(lambda)))
+(check-false (lambda? '10))
+(check-false (lambda? '(define ())))
+(check-false (lambda? '(lambda (1) 2)))
+(check-true (lambda? (quote (lambda (x) x))))
+(check-false (lambda? (quote 3)))
+(check-false (lambda? '(lambda ())))
+(check-true (lambda? '(lambda (x) ())))
+(check-true (lambda? '(lambda () (+ 1 2))))
+;(check-false (lambda? '(lambda x 10)))
+
+
+; (q )
+
+
+

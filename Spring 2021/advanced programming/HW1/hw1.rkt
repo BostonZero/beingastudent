@@ -57,9 +57,26 @@
 	)
 )
 ;; lambda
-(define (lambda? node) (andmap symbol? node))
-(define (lambda-params node) 'todo)
-(define (lambda-body node) 'todo)
+(define (lambda? node) 
+	(and 
+		(not (empty? node))
+                (list? node)
+		(equal? (list-ref node 0) 'lambda)
+		(list? (rest node))
+                (not (empty? (rest node)))
+                (andmap symbol? (lambda-params node))
+                (not (empty? (rest (rest node))))
+	)
+)
+
+
+(define (lambda-params node)
+  (list-ref node 1)
+  
+)
+(define (lambda-body node)
+  (rest (rest node))
+)
 
 ;; apply
 (define (apply? l) 'todo)
