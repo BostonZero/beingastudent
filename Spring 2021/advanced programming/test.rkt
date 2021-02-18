@@ -1,7 +1,11 @@
 #lang racket
 (require rackunit)
 
-;;; (define (lambda? node) 
+(define (lambda? node) 
+(andmap symbol? node)
+)
+
+
 
 
 ;;; 'todo

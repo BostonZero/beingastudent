@@ -57,7 +57,7 @@
 	)
 )
 ;; lambda
-(define (lambda? node) 'todo)
+(define (lambda? node) (andmap symbol? node))
 (define (lambda-params node) 'todo)
 (define (lambda-body node) 'todo)
 
