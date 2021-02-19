@@ -60,12 +60,13 @@
 (define (lambda? node) 
 	(and 
 		(not (empty? node))
-                (list? node)
+        (list? node)
 		(equal? (list-ref node 0) 'lambda)
 		(list? (rest node))
-                (not (empty? (rest node)))
-                (andmap symbol? (lambda-params node))
-                (not (empty? (rest (rest node))))
+        (not (empty? (rest node)))
+        (andmap symbol? (lambda-params node))
+        (not (empty? (rest (rest node))))
+		(not (empty? (lambda-body node)))
 	)
 )
 
@@ -84,7 +85,34 @@
 (define (apply-args node) 'todo)
 
 ;; define
-(define (define? node) 'todo)
-(define (define-basic? node) 'todo)
-(define (define-func? node) 'todo)
+(define (define? node) 
+		(or
+			(define-basic? node)
+			(define-func? node)
+		)
+)
+(define (define-basic? node) 
+	(and
+		(not (empty? node))
+        (list? node)
+		(equal? (list-ref node 0) 'define)
+		(not (empty? (rest node)))
+		(list? (rest node))
+	
+	
+
+	)
+)
+(define (define-func? node) 	
+	(and
+		(not (empty? node))
+        (list? node)
+		(equal? (list-ref node 0) 'define)
+		(not (empty? (rest node)))
+		(list? (list-ref node 1))
+		(not (empty? (rest (rest node))))
+	
+
+	)
+)
 
