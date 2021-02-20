@@ -33,14 +33,18 @@
 
 PROTOTYPE int stop(Cmd *cp, char *arguments);
 PROTOTYPE int mem_display(Cmd *cp, char *arguments);
+//PROTOTYPE int mem_set(Cmd *cp, char *arguments);
+//PROTOTYPE int help(Cmd *cp, char *arguments);
 
 /* command table */
 
 Cmd cmds[] = {{"md",  mem_display, "Memory display: MD <addr>"},
               {"s",   stop,        "Stop" },
+//             {"ms",  mem_set,     "Memory set: ms <addr> <value>" },
+//              {"h",   help,        "Help <cmd>" },
               {NULL,  NULL,        NULL}};  /* null cmd to flag end of table */
 
-char xyz = 6;  /* test global variable  */
+char xyz = 97;  /* test global variable  */
 char *pxyz = &xyz;  /* test pointer to xyz */
 /*===================================================================*
 *		command			routines
@@ -64,7 +68,26 @@ int stop(Cmd *cp, char *arguments)
 
 int mem_display(Cmd *cp, char *arguments)
 {
-  printf("Reached mem_display, passed argument string: |%s|\n", arguments);
-  printf("        help message: %s\n", cp->help);
-  return 0;			/* not done */
+	int location;
+	unsigned char *pointer; //strange overflow glitches if i leave this as a normal char
+	sscanf(arguments, "%x", &location); //convet string to a hex and store it
+	pointer = location;
+	//printf("Reached mem_display, passed argument string: |%s|\n", arguments);
+	//printf("        help message: %s\n", cp->help);
+	//printf("pxyz location: %p\n", pxyz);
+	//printf("xyz location: %p\n", &xyz);
+	//printf("%02x, ", *pointer);
+	//above are some debugging prints because i found gdb useless here
+	for(int i = 0; i<16; i++){
+		printf("%02x ", *(pointer + i)); //the 02 forces leading zeroes to format, x is for hex (lowercase)
+	}
+	printf("\t");
+	for(int i = 0; i<16; i++){
+		if(*(pointer + i) >= 32 && *(pointer + i) <= 127){ //checks if its in in the specified ascii range to not just leave a dot
+			printf("%c ", *(pointer + i));
+		}
+		else{ printf(". ");}
+	}
+	printf("\n");//formatting
+	return 0;
 }
