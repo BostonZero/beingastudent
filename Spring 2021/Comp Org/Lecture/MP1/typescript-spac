@@ -1,0 +1,60 @@
+Script started on Tue 23 Feb 2021 10:08:01 PM EST
+tuser@tutor-vserver:~/mp1$ ls -al
+total 360
+drwxrwsr-x 2 tuser tuser   4096 Feb 23 22:08 [0m[01;34m.[0m
+drwxrwxrwx 9 tuser tuser   4096 Feb 23 20:19 [34;42m..[0m
+-rw-r--r-- 1 tuser tuser   4836 Feb 21 20:11 cmds.c
+-rw-r--r-- 1 tuser tuser    971 Feb 21 20:11 discussion.txt
+-rw-r--r-- 1 tuser tuser   3029 Feb 21 20:11 makefile
+-rw-r--r-- 1 tuser tuser 257525 Feb 21 20:11 mp1.pdf
+-rw-r--r-- 1 tuser tuser  13728 Feb 21 20:11 Rubric.docx
+-rw-r--r-- 1 tuser tuser   2471 Feb 21 20:11 slex.c
+-rw-r--r-- 1 tuser tuser   1846 Feb 21 20:11 slex.h
+-rw-r--r-- 1 tuser tuser   1228 Feb 23 22:07 syms
+-rw-r--r-- 1 tuser tuser   2321 Feb 21 20:11 tutor.c
+-rwxr-xr-x 1 tuser tuser  40836 Feb 23 22:04 [01;32mtutor.lnx[0m
+-rw-r--r-- 1 tuser tuser      0 Feb 23 22:08 typescript
+-rw-r--r-- 1 tuser tuser    520 Feb 21 20:11 usyms
+-rw-r--r-- 1 tuser tuser   1024 Feb 21 20:11 .usyms.swp
+tuser@tutor-vserver:~/mp1$ cat [K[K[K[Kt[Kmtip
+Usage: mtip [-b board#] [-f download-file]
+specify board by #: -b 1, etc.; defaults to scan.
+more flags: [-x debuglevel] -e <escchar>
+  Use ~ or Esc for mtip commands such as ~q or <Esc>q to quitfor more info on commands, type ~? or Esc? once program is running
+now scanning for free board...
+Using board # 1 
+~download your .lnx file: tutor.lnx
+Code starts at 0x100100
+
+..........Done.
+
+Download done, setting EIP to 100100.
+Tutor> go 100100
+     cmd    help message
+      md    Memory display: MD <addr>
+       s    Stop
+      ms    Memory set: ms <addr> <value>
+       h    Help <cmd>
+PC-tutor> h s
+Stop
+PC-tutor> h h
+Help <cmd>
+PC-tutor> h md
+Memory display: MD <addr>
+PC-tutor> h ms
+Memory set: ms <addr> <value>
+PC-tutor> md 102400
+ 102400	06 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 	. . . . . . . . . . . . . . . . 
+PC-tutor> ms 102400 73
+PC-tutor> md 102400
+ 102400	73 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 	s . . . . . . . . . . . . . . . 
+PC-tutor> s
+Exception 3 at EIP=00100110: Breakpoint
+Tutor> d 
+Tutor> 
+Quit handler: 
+killing process 2383 Leaving board #1
+tuser@tutor-vserver:~/mp1$ exit
+exit
+
+Script done on Tue 23 Feb 2021 10:18:50 PM EST
