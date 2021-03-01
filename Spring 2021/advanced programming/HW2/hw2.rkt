@@ -15,13 +15,36 @@
 
 
 ;; Exercise 1.a: Counter
-(define (counter accum grow) 'todo)
+(define (counter accum grow) 
+  (lambda (inp)
+    (cond 
+          [(equal? 'get inp) accum]
+          [(equal? inp 'inc) (grow accum)]
+          [else (void)]
+    )) 
+)
 
 ;; Exercise 1.b: Adder
-(define (adder super) 'todo)
+(define (adder super) 
+  (lambda (inp)
+    (cond 
+          [(equal? 'get inp) super]
+          [(equal? 'inc inp) super]
+          [else (void)]
+    )) 
+
+
+
+)
 
 ;; Exercise 2: Interperse
-(define (intersperse l v) 'todo)
+(define (intersperse l v) 
+  (cond 
+      [(empty? l) l]
+      [else (cons (car l)
+              (cons v))]
+  )
+)
 
 ;; Exercise 3.a: Generic find
 (define (find pred l) 'todo)
