@@ -19,7 +19,7 @@
   (lambda (inp)
     (cond 
           [(equal? 'get inp) accum]
-          [(equal? inp 'inc) (grow accum)]
+          [(equal? 'inc inp) (counter (grow accum) grow)]
           [else (void)]
     )) 
 )
@@ -28,8 +28,8 @@
 (define (adder super) 
   (lambda (inp)
     (cond 
-          [(equal? 'get inp) super]
-          [(equal? 'inc inp) super]
+          [(equal? 'get inp) ( super 'get)]
+          [(equal? 'inc inp) (( super 'inc) 'inc)]
           [else (void)]
     )) 
 
