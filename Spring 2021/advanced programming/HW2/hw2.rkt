@@ -31,12 +31,6 @@
           [(equal? 'get inp) (super 'get)]
           [(equal? 'inc inp) (adder ((super 'inc) 'inc))]
           [else (void)])))
-     
-
-
-
-
-
 ;; Exercise 2: Interperse
 (define (intersperse l v) 
   (cond 
