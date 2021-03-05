@@ -29,7 +29,7 @@
   (lambda (inp)
     (cond 
           [(equal? 'get inp) (super 'get)]
-          [(equal? 'inc inp) ((super 'inc) 'inc)]
+          [(equal? 'inc inp) (adder ((super 'inc) 'inc))]
           [else (void)])))
      
 
