@@ -20,31 +20,31 @@
     (cond 
           [(equal? 'get inp) accum]
           [(equal? 'inc inp) (counter (grow accum) grow)]
-          [else (void)]
-    )) 
-)
+          [else (void)])))
+     
+
 
 ;; Exercise 1.b: Adder
 (define (adder super) 
   (lambda (inp)
     (cond 
-          [(equal? 'get inp) ( super 'get)]
-          [(equal? 'inc inp) (( super 'inc) 'inc)]
-          [else (void)]
-    )) 
+          [(equal? 'get inp) (super 'get)]
+          [(equal? 'inc inp) ((super 'inc) 'inc)]
+          [else (void)])))
+     
 
 
 
-)
+
 
 ;; Exercise 2: Interperse
 (define (intersperse l v) 
   (cond 
       [(empty? l) l]
       [else (cons (car l)
-              (cons v))]
-  )
-)
+              (cons v))]))
+  
+
 
 ;; Exercise 3.a: Generic find
 (define (find pred l) 'todo)

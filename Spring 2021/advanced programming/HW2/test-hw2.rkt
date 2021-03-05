@@ -11,41 +11,11 @@
   this course.
 |#
 (require rackunit)
-;(require "ast.rkt")
-;(require "hw2.rkt")
+;(require racket/trace)
+(require "ast.rkt")
+(require "hw2.rkt")
 (provide (all-defined-out))
-;; ^^^^^ DO NOT CHANGE ANY CODE ABOVE THIS LINE ^^^^^
 
-
-;; Exercise 1.a: Counter
-(define (counter accum grow) 
-  (lambda (inp)
-    ; (print 'inpval)
-    ; (print inp)
-    ; (print 'growval)
-    ; (print (quote grow))
-    (cond 
-          [(equal? 'get inp) accum]
-          [(equal? 'inc inp) (counter (grow accum) grow)]
-          [else (void)]
-    )) 
-)
-
-;; Exercise 1.b: Adder
-(define (adder super) 
-  (lambda (inp)
-    (cond 
-          [(equal? 'get inp) ( super 'get)]
-          [(equal? 'inc inp)(( super 'inc) 'inc)]
-          [else (void)]
-    )) 
-
-
-
-)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;
-; Exercise 1.a
 ; These are just utility functions
 (define (counter-get c) (c 'get))
 (define (counter-inc c) (c 'inc))
@@ -73,3 +43,4 @@
 (check-equal? 12 (counter-get a2))
 (check-equal? 14 (counter-get a3))
 
+ 
