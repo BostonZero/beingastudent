@@ -33,13 +33,11 @@
           [else (void)])))
 ;; Exercise 2: Interperse
 (define (intersperse l v) 
-  (cond 
+  (cond
       [(empty? l) l]
       [else (cons (car l)
-              (cons v))]))
-  
-
-
+                  (cons v
+                        (intersperse (cdr l) v)))]))
 ;; Exercise 3.a: Generic find
 (define (find pred l) 'todo)
 

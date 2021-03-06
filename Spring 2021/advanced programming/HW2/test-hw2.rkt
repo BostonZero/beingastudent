@@ -16,31 +16,12 @@
 (require "hw2.rkt")
 (provide (all-defined-out))
 
-; These are just utility functions
-(define (counter-get c) (c 'get))
-(define (counter-inc c) (c 'inc))
+; Exercise 2
+(check-equal? (list 1 0 2 0 3) (intersperse (list 1 2 3) 0))
+; In this case we are adding a symbol instead of a number:
+(check-equal? (list 1 'x 2) (intersperse (list 1 2) 'x))
 
-; A numeric counter
-(define (int-counter n) (counter n (curry + 1)))
+; To interperse we need to have at least 2 elements in the list
+(check-equal? (list 1) (intersperse (list 1) 9))
+(check-equal? empty (intersperse empty 10))
 
-(define c1 (int-counter 10)) ; Create a new counter
-(define c2 (counter-inc c1)) ; Increment the counter once
-(define c3 (counter-inc c2)) ; Increment the counter again
-; A counter that appends dots
-(define str-counter (counter "" (curry string-append ".")))
-
-(define d1 str-counter) ; Create a new counter
-(define d2 (counter-inc d1)) ; Increment the counter once
-(define d3 (counter-inc d2)) ; Increment the counter again
-;;;;;;;;;;;;;;
-; Exercise 1.b
-
-(define a1 (adder c1))
-(define a2 (counter-inc a1))
-(define a3 (counter-inc a2))
-
-(check-equal? 10 (counter-get a1))
-(check-equal? 12 (counter-get a2))
-(check-equal? 14 (counter-get a3))
-
- 
