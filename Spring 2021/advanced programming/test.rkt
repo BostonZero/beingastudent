@@ -1,45 +1,4 @@
 #lang racket
 (require rackunit)
 
-(define (lambda? node) 
-	(and 
-		(not (empty? node))
-                (list? node)
-		(equal? (list-ref node 0) 'lambda)
-		(list? (rest node))
-                (not (empty? (rest node)))
-                (andmap symbol? (lambda-params node))
-                (not (empty? (rest (rest node))))
-	)
-	
-)
-
-
-(define (lambda-params node)
-  (list-ref node 1)
-  
-)
-(define (lambda-body node)
-  (rest (rest node))
-
-
-)
-
-
-(check-false (lambda? '()))
-(check-false (lambda? '(lambda)))
-(check-false (lambda? '10))
-(check-false (lambda? '(define ())))
-(check-false (lambda? '(lambda (1) 2)))
-(check-true (lambda? (quote (lambda (x) x))))
-(check-false (lambda? (quote 3)))
-(check-false (lambda? '(lambda ())))
-(check-true (lambda? '(lambda (x) ())))
-(check-true (lambda? '(lambda () (+ 1 2))))
-;(check-false (lambda? '(lambda x 10)))
-
-
-; (q )
-
-
-
+(+ 1 #f)

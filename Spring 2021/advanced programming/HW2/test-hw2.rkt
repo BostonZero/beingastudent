@@ -11,17 +11,15 @@
   this course.
 |#
 (require rackunit)
-;(require racket/trace)
 (require "ast.rkt")
 (require "hw2.rkt")
-(provide (all-defined-out))
 
-; Exercise 2
-(check-equal? (list 1 0 2 0 3) (intersperse (list 1 2 3) 0))
-; In this case we are adding a symbol instead of a number:
-(check-equal? (list 1 'x 2) (intersperse (list 1 2) 'x))
-
-; To interperse we need to have at least 2 elements in the list
-(check-equal? (list 1) (intersperse (list 1) 9))
-(check-equal? empty (intersperse empty 10))
-
+;;;;;;;;;;;;;;;;
+; Exercise 4
+(define (f x y z w)
+  (+ x y z w))
+(define g (uncurry (curry f)))
+(check-equal? 10 (g (list 1 2 3 4)))
+(check-equal? 13 ((uncurry (lambda () 13)) (list)))
+(check-equal? 13 ((uncurry (lambda (x) (+ x 3))) (list 10)))
+(check-equal? 13 ((uncurry (lambda (x) (lambda (y) (+ x y)))) (list 10 3)))

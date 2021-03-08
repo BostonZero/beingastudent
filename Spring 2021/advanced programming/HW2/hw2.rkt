@@ -35,17 +35,45 @@
 (define (intersperse l v) 
   (cond
       [(empty? l) l]
+      [(empty? (rest l)) l]
       [else (cons (car l)
                   (cons v
                         (intersperse (cdr l) v)))]))
 ;; Exercise 3.a: Generic find
-(define (find pred l) 'todo)
-
+(define (find pred l)
+ (define (dive accum func d-list) ;this will return the index value 
+  (cond
+   [(empty? d-list) #f]
+   [(equal? (func accum (car d-list)) #t) accum]
+   [else (dive (+ accum 1) func (rest d-list))]))
+  
+ (define var (dive 0 pred l))
+ (cond 
+  [(empty? l) #f] ;empty list. we leave
+  [(equal? var #f) #f];post iteration yields a waste of time, we leave
+  [else (cons
+         var ;return index
+         (list-ref l var))]));get me the element
+  
 ;; Exercise 3.b: Member using find
-(define (member x l) 'todo)
+(define (member x l) 
+ (cond
+  [(equal? #f (find (lambda (crap junk) (equal? junk x)) l)) #f]
+  [else #t]))
 
 ;; Exercise 3.c: index-of using find
-(define (index-of l x) 'todo)
+(define (index-of l x) 
+  (define var (find (lambda (crap junk) (equal? junk x)) l))
+ (cond 
+  [(pair? var) (car var)]
+  [else #f]))
+  
+  
+
+
+
+
+
 
 ;; Exercise 4: uncurry, tail-recursive
 (define (uncurry f) 'todo)
