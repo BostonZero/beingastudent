@@ -39,6 +39,7 @@
       [else (cons (car l)
                   (cons v
                         (intersperse (cdr l) v)))]))
+                        
 ;; Exercise 3.a: Generic find
 (define (find pred l)
  (define (dive accum func d-list) ;this will return the index value 
@@ -84,8 +85,8 @@
   (define (make-define-basic node) 'todo)
   (define (make-lambda node) 'todo)
   (define (make-apply node) 'todo)
-  (define (make-number node) 'todo)
-  (define (make-variable node) 'todo)
+  (define (make-number node) (r:number node))
+  (define (make-variable node) (r:variable (quote node)))
 
   (cond
     [(define-basic? node) (make-define-basic node)]
