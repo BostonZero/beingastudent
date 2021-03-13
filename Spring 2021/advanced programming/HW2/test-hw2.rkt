@@ -29,54 +29,54 @@
 
 (check-equal? (parse-ast '10) (r:number 10))
 
-;;; (check-equal?
-;;;   (parse-ast '(lambda (x) x))
-;;;   (r:lambda (list (r:variable 'x)) (list (r:variable 'x))))
+(check-equal?
+  (parse-ast '(lambda (x) x))
+  (r:lambda (list (r:variable 'x)) (list (r:variable 'x))))
 
-;;; (check-equal?
-;;;   (parse-ast '(define (f y) (+ y 10)))
-;;;   (r:define
-;;;     (r:variable 'f)
-;;;     (r:lambda
-;;;       (list (r:variable 'y))
-;;;       (list (r:apply (r:variable '+) (list (r:variable 'y) (r:number 10)))))))
+(check-equal?
+  (parse-ast '(define (f y) (+ y 10)))
+  (r:define
+    (r:variable 'f)
+    (r:lambda
+      (list (r:variable 'y))
+      (list (r:apply (r:variable '+) (list (r:variable 'y) (r:number 10)))))))
 
-;;; (check-equal?
-;;;   (parse-ast '(define (f y) (+ y 10)))
-;;;   (r:define (r:variable 'f)
-;;;     (r:lambda (list (r:variable 'y))
-;;;       (list (r:apply (r:variable '+) (list (r:variable 'y) (r:number 10)))))))
+(check-equal?
+  (parse-ast '(define (f y) (+ y 10)))
+  (r:define (r:variable 'f)
+    (r:lambda (list (r:variable 'y))
+      (list (r:apply (r:variable '+) (list (r:variable 'y) (r:number 10)))))))
 
-;;; (check-equal?
-;;;   (parse-ast '(define (f x y) (+ x y 10)))
-;;;   (r:define (r:variable 'f)
-;;;     (r:lambda (list (r:variable 'x) (r:variable 'y))
-;;;       (list (r:apply (r:variable '+) (list (r:variable 'x) (r:variable 'y) (r:number 10)))))))
+(check-equal?
+  (parse-ast '(define (f x y) (+ x y 10)))
+  (r:define (r:variable 'f)
+    (r:lambda (list (r:variable 'x) (r:variable 'y))
+      (list (r:apply (r:variable '+) (list (r:variable 'x) (r:variable 'y) (r:number 10)))))))
 
-;;; (check-equal?
-;;;   (parse-ast '(define (f) (+ 2 3 4)))
-;;;   (r:define (r:variable 'f)
-;;;     (r:lambda '()
-;;;       (list (r:apply (r:variable '+) (list (r:number 2) (r:number 3) (r:number 4)))))))
+(check-equal?
+  (parse-ast '(define (f) (+ 2 3 4)))
+  (r:define (r:variable 'f)
+    (r:lambda '()
+      (list (r:apply (r:variable '+) (list (r:number 2) (r:number 3) (r:number 4)))))))
 
-;;; (check-equal?
-;;;   (parse-ast '(define (f) 1))
-;;;   (r:define (r:variable 'f)
-;;;     (r:lambda '() (list (r:number 1)))))
+(check-equal?
+  (parse-ast '(define (f) 1))
+  (r:define (r:variable 'f)
+    (r:lambda '() (list (r:number 1)))))
 
-;;; (check-equal?
-;;;   (parse-ast '(define (f) (define x 3) x))
-;;;   (r:define (r:variable 'f)
-;;;     (r:lambda '()
-;;;       (list (r:define (r:variable 'x) (r:number 3)) (r:variable 'x)))))
+(check-equal?
+  (parse-ast '(define (f) (define x 3) x))
+  (r:define (r:variable 'f)
+    (r:lambda '()
+      (list (r:define (r:variable 'x) (r:number 3)) (r:variable 'x)))))
 
-;;; (check-equal?
-;;;  (parse-ast (quote (lambda (x) (define y 10) y)))
-;;;  (r:lambda 
-;;;   (list (r:variable 'x)) 
-;;;   (list
-;;;     (r:define
-;;;       (r:variable 'y)
-;;;       (r:number 10)
-;;;     ) 
-;;;     (r:variable 'y))))
+(check-equal?
+ (parse-ast (quote (lambda (x) (define y 10) y)))
+ (r:lambda 
+  (list (r:variable 'x)) 
+  (list
+    (r:define
+      (r:variable 'y)
+      (r:number 10)
+    ) 
+    (r:variable 'y))))

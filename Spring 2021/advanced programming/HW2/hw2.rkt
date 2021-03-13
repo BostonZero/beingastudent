@@ -81,17 +81,28 @@
 
 ;; Exercise 5: Parse a quoted AST
 (define (parse-ast node)
-  (define (make-define-func node) 'todo)
-  (define (make-define-basic node) 'todo)
-  (define (make-lambda node) 'todo)
+  (define (make-define-func node) 
+    (r:define 
+      (make-variable (first (second node))) 
+      (r:lambda 
+        (map make-variable 
+          (rest (second node))) 
+        (map parse-ast (rest (rest node))))))
+  (define (make-define-basic node)
+    (r:define 
+      (parse-ast (second node))  
+      (parse-ast (first (rest (rest node))))))
+  (define (make-lambda node) 
+    (r:lambda (map make-variable (second node)) 
+              (map parse-ast (rest (rest node)))))
   (define (make-apply node) 'todo)
   (define (make-number node) (r:number node))
-  (define (make-variable node) (r:variable (quote node)))
+  (define (make-variable node)  (r:variable node))
 
-  (cond
-    [(define-basic? node) (make-define-basic node)]
-    [(define-func? node) (make-define-func node)]
-    [(symbol? node) (make-variable node)]
-    [(real? node) (make-number node)]
-    [(lambda? node) (make-lambda node)]
-    [else (make-apply node)]))
+(cond
+  [(define-basic? node) (make-define-basic node)]
+  [(define-func? node) (make-define-func node)]
+  [(symbol? node) (make-variable node)]
+  [(real? node) (make-number node)]
+  [(lambda? node) (make-lambda node)]
+  [else (make-apply node)]))
