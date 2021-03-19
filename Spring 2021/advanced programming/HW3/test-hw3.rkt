@@ -18,6 +18,10 @@
 
 (require rackunit)
 
+;; Check if the given set contains the expected members
+(define-check (check-set-contains? given expected)
+    (check-equal? (set-intersect expected given) expected))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; PROMISE LISTS
 
@@ -73,9 +77,7 @@
 ;
 ; We can now define the notion of empty? like we have for lists
 (define (p:empty? p)
-  (and
-    (promise? p)
-    (empty? (force p))))
+  (empty? (force p)))
 ; The empty promise list is empty
 (check-true (p:empty? p:empty))
 ; The promise list l1 is not a list
@@ -141,7 +143,7 @@
 ; This function is needed to test Exercise 7
 ;
 (define (p:pow p n)
-  (cond [(<= n 0) (force p:epsilon)]
+  (cond [(<= n 0) p:epsilon]
         [else (p:cat p (p:pow p (- n 1)))]))
 
 ; Input: {a, b}
@@ -207,19 +209,28 @@
 ;
 ; MAKE SURE YOU PASS ONE OF THESE TESTS. YOU CANNOT PASS BOTH
 ;
-; (check-equal?
-;   (p:list->list (p:union (p:list "a" "b" "c") (p:list "d" "e" "f")))
-;   (list "a" "d" "b" "e" "c" "f"))
-; (check-equal?
-;   (p:list->list (p:union (p:list "a" "b" "c") (p:list "d" "e" "f")))
-;   (list "d" "a" "e" "b" "f" "c"))
+(define a-d-b-e-c-f (p:list->list (p:union (p:list "a" "b" "c") (p:list "d" "e" "f"))))
 
+(check-equal? (p:take 2 a-d-b-e-c-f)
+  (set "a" "d") ; THE ORDER DOES NOT MATTER
+)
+(check-equal? (p:take 4 a-d-b-e-c-f)
+  (set "a" "d" "b" "e") ; THE ORDER DOES NOT MATTER
+)
+(check-equal? (p:list->set a-d-b-e-c-f)
+  (set "a" "d" "b" "e" "c" "f") ; THE ORDER DOES NOT MATTER
+)
 
 
 ; Exercise 5: prefix every string in the promise-list with a given string
 (check-equal?
   (p:list->set (p:prefix "x" (p:list "a" "b" "c")))
   (set "xa" "xb" "xb" "xc")
+)
+
+(check-equal?
+  (p:list->set (p:prefix "x" p:empty))
+  (set)
 )
 
 ; Exercise 6: prefix every string in the left-hand side with every string
@@ -229,15 +240,23 @@
   (set "xa" "xb" "xc" "ya" "yb" "yc")
 )
 
+(check-equal?
+  (p:list->set (p:cat (p:list "x" "y") p:empty))
+  (set)
+)
+
+(check-equal?
+  (p:list->set (p:cat p:empty (p:list "x" "y")))
+  (set)
+)
+
 ; Exercise 7
 ; If we range over the first 100 elements, we should find at least these
 ; elements
-(check-equal?
-  (set-subtract
-    (set "" "a" "b" "ab" "ba" "aa" "bb")
-    (p:take 100 (p:star p:union p:pow (p:list "a" "b")))
-  )
-  (set)
+
+(check-set-contains?
+  (p:take 100 (p:star p:union p:pow (p:list "a" "b")))
+  (set "" "a" "b" "ab" "ba" "aa" "bb")
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

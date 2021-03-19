@@ -20,7 +20,7 @@
 ;; Utility functions ;;
 
 (define p:empty (delay empty))
-(define (p:empty? p) (and (promise? p) (empty? (force p))))
+(define (p:empty? p) (empty? (force p)))
 (define (p:first l) (car (force l)))
 (define (p:rest l) (cdr (force l)))
 (define (stream-get stream) (car stream))
@@ -78,3 +78,12 @@
       (r:eval-exp (first (r:apply-args exp)))
       (r:eval-exp (second (r:apply-args exp))))]
     [else (error "Unknown expression:" exp)]))
+
+
+;do order
+;;; - r:bool
+;;; - p:void, p:epsilon, p:char
+;;; - stream-skip, p:cat, p:union, p:prefix
+;;; - stream-fold 
+;;; - eval
+;;; - p:star
