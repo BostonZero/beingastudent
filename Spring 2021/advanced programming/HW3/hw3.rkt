@@ -36,7 +36,7 @@
 (define p:epsilon (delay (list "")))
 
 ;; Exercise 3
-(define (p:char p) (delay p))
+(define (p:char p) (delay (list p)))
 
 ;; Exercise 4
 (define (p:union p1 p2) 'todo)
