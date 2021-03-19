@@ -27,15 +27,16 @@
 (define (stream-next stream) ((cdr stream)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(struct r:bool (value))
 
 ;; Exercise 1
-(define p:void 'todo)
+(define p:void (delay empty))
 
 ;; Exercise 2
-(define p:epsilon 'todo)
+(define p:epsilon (delay (list "")))
 
 ;; Exercise 3
-(define (p:char p) 'todo)
+(define (p:char p) (delay p))
 
 ;; Exercise 4
 (define (p:union p1 p2) 'todo)
@@ -64,6 +65,8 @@
         [(equal? sym '/) /]
         [else #f]))
 
+
+
 (define (r:eval-exp exp)
   (cond
     ; 1. When evaluating a number, just return that number
@@ -77,6 +80,9 @@
      ((r:eval-exp (r:apply-func exp))
       (r:eval-exp (first (r:apply-args exp)))
       (r:eval-exp (second (r:apply-args exp))))]
+    [(r:bool? exp) (r:bool-value exp)]    
+    
+    
     [else (error "Unknown expression:" exp)]))
 
 

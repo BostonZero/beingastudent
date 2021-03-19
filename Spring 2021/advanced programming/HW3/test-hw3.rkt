@@ -192,141 +192,141 @@
   (p:list->set (p:union (p:list "a" "b" "c") (p:list "d" "e" "f")))
   (set "a" "b" "c" "d" "e" "f"))
 
-(check-equal?
-  (p:list->set (p:union p:void (p:list "d" "e" "f")))
-  (set "d" "e" "f"))
+;;; (check-equal?
+;;;   (p:list->set (p:union p:void (p:list "d" "e" "f")))
+;;;   (set "d" "e" "f"))
 
-(check-equal?
-  (p:list->set (p:union (p:list "a" "b" "c") p:void))
-  (set "a" "b" "c"))
+;;; (check-equal?
+;;;   (p:list->set (p:union (p:list "a" "b" "c") p:void))
+;;;   (set "a" "b" "c"))
 
-(check-equal?
-  (p:list->set (p:union p:epsilon (p:list "d" "e" "f")))
-  (set "" "d" "e" "f"))
+;;; (check-equal?
+;;;   (p:list->set (p:union p:epsilon (p:list "d" "e" "f")))
+;;;   (set "" "d" "e" "f"))
 
-; Although you mush show that the two sets are interleaved, you can
-; choose to start with the left-hand side or with the right-hand side.
-;
-; MAKE SURE YOU PASS ONE OF THESE TESTS. YOU CANNOT PASS BOTH
-;
-(define a-d-b-e-c-f (p:list->list (p:union (p:list "a" "b" "c") (p:list "d" "e" "f"))))
+;;; ; Although you mush show that the two sets are interleaved, you can
+;;; ; choose to start with the left-hand side or with the right-hand side.
+;;; ;
+;;; ; MAKE SURE YOU PASS ONE OF THESE TESTS. YOU CANNOT PASS BOTH
+;;; ;
+;;; (define a-d-b-e-c-f (p:list->list (p:union (p:list "a" "b" "c") (p:list "d" "e" "f"))))
 
-(check-equal? (p:take 2 a-d-b-e-c-f)
-  (set "a" "d") ; THE ORDER DOES NOT MATTER
-)
-(check-equal? (p:take 4 a-d-b-e-c-f)
-  (set "a" "d" "b" "e") ; THE ORDER DOES NOT MATTER
-)
-(check-equal? (p:list->set a-d-b-e-c-f)
-  (set "a" "d" "b" "e" "c" "f") ; THE ORDER DOES NOT MATTER
-)
-
-
-; Exercise 5: prefix every string in the promise-list with a given string
-(check-equal?
-  (p:list->set (p:prefix "x" (p:list "a" "b" "c")))
-  (set "xa" "xb" "xb" "xc")
-)
-
-(check-equal?
-  (p:list->set (p:prefix "x" p:empty))
-  (set)
-)
-
-; Exercise 6: prefix every string in the left-hand side with every string
-; of the right-hand side.
-(check-equal?
-  (p:list->set (p:cat (p:list "x" "y") (p:list "a" "b" "c")))
-  (set "xa" "xb" "xc" "ya" "yb" "yc")
-)
-
-(check-equal?
-  (p:list->set (p:cat (p:list "x" "y") p:empty))
-  (set)
-)
-
-(check-equal?
-  (p:list->set (p:cat p:empty (p:list "x" "y")))
-  (set)
-)
-
-; Exercise 7
-; If we range over the first 100 elements, we should find at least these
-; elements
-
-(check-set-contains?
-  (p:take 100 (p:star p:union p:pow (p:list "a" "b")))
-  (set "" "a" "b" "ab" "ba" "aa" "bb")
-)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; STREAMS
-
-;; Exercise 3
-
-; Retrieves the current value of the stream
-(define (stream-get stream) (car stream))
-; Retrieves the thunk and evaluates it, returning a thunk
-(define (stream-next stream) ((cdr stream)))
+;;; (check-equal? (p:take 2 a-d-b-e-c-f)
+;;;   (set "a" "d") ; THE ORDER DOES NOT MATTER
+;;; )
+;;; (check-equal? (p:take 4 a-d-b-e-c-f)
+;;;   (set "a" "d" "b" "e") ; THE ORDER DOES NOT MATTER
+;;; )
+;;; (check-equal? (p:list->set a-d-b-e-c-f)
+;;;   (set "a" "d" "b" "e" "c" "f") ; THE ORDER DOES NOT MATTER
+;;; )
 
 
-(define (naturals)
-  (define (naturals-iter n)
-    (thunk
-      (cons n (naturals-iter (+ n 1)))))
-  ((naturals-iter 0)))
+;;; ; Exercise 5: prefix every string in the promise-list with a given string
+;;; (check-equal?
+;;;   (p:list->set (p:prefix "x" (p:list "a" "b" "c")))
+;;;   (set "xa" "xb" "xb" "xc")
+;;; )
 
-(define (ex1)
-  (define s (stream-foldl cons empty (naturals)))
-  (check-equal? (stream-get s) empty)
-  (check-equal? (stream-get (stream-next s)) (list 0))
-  (check-equal? (stream-get (stream-next (stream-next s))) (list 1 0))
-  (check-equal? (stream-get (stream-next (stream-next (stream-next s)))) (list 2 1 0)))
-(ex1)
+;;; (check-equal?
+;;;   (p:list->set (p:prefix "x" p:empty))
+;;;   (set)
+;;; )
 
-(define (ex2)
-  (define s (stream-skip 10 (naturals)))
-  (check-equal? (stream-get s) 10)
-  (check-equal? (stream-get (stream-next s)) 11)
-  (check-equal? (stream-get (stream-next (stream-next s))) 12))
-(ex2)
+;;; ; Exercise 6: prefix every string in the left-hand side with every string
+;;; ; of the right-hand side.
+;;; (check-equal?
+;;;   (p:list->set (p:cat (p:list "x" "y") (p:list "a" "b" "c")))
+;;;   (set "xa" "xb" "xc" "ya" "yb" "yc")
+;;; )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; EVALUATION
+;;; (check-equal?
+;;;   (p:list->set (p:cat (p:list "x" "y") p:empty))
+;;;   (set)
+;;; )
 
-;; Exercise 10.b
-(check-equal? (r:eval-exp (r:bool #t)) #t)
-(check-equal? (r:eval-exp (r:bool #f)) #f)
-(check-equal? (r:eval-exp (r:variable '+)) +)
-;; Exercise 10.c
-(check-true (r:eval-exp (r:apply (r:variable 'and) (list (r:bool #t) (r:bool #t)))))
-(check-false (r:eval-exp (r:apply (r:variable 'and) (list (r:bool #t) (r:bool #f)))))
-(check-equal?
-  (r:eval-exp
-    (r:apply (r:variable 'and)
-      (list
-        (r:bool #t)
-        (r:bool #t)
-        (r:apply (r:variable '+) (list (r:number 2) (r:number 3))))))
-  5)
+;;; (check-equal?
+;;;   (p:list->set (p:cat p:empty (p:list "x" "y")))
+;;;   (set)
+;;; )
 
-(check-equal? (r:eval-exp (r:apply (r:variable '+) (list (r:number 1) (r:number 2) (r:number 3)))) 6)
-(check-equal?
-  (r:eval-exp
-    (r:apply (r:variable 'and)
-      (list (r:bool #t) (r:number 2) (r:number 3))))
-  3)
+;;; ; Exercise 7
+;;; ; If we range over the first 100 elements, we should find at least these
+;;; ; elements
 
-(check-true (r:eval-exp (r:apply (r:variable 'and) (list (r:bool #t) (r:bool #t)))))
-(check-false (r:eval-exp (r:apply (r:variable 'and) (list (r:bool #t) (r:bool #f)))))
+;;; (check-set-contains?
+;;;   (p:take 100 (p:star p:union p:pow (p:list "a" "b")))
+;;;   (set "" "a" "b" "ab" "ba" "aa" "bb")
+;;; )
 
-(check-equal?
-  (r:eval-exp
-    (r:apply (r:variable '+)
-      (list (r:number 1) (r:number 2) (r:number 3))))
-  6)
-(check-equal?
-  (r:eval-exp
-    (r:apply (r:variable 'and)
-      (list (r:bool #t) (r:number 2) (r:number 3))))
-  3)
+;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; ;; STREAMS
+
+;;; ;; Exercise 3
+
+;;; ; Retrieves the current value of the stream
+;;; (define (stream-get stream) (car stream))
+;;; ; Retrieves the thunk and evaluates it, returning a thunk
+;;; (define (stream-next stream) ((cdr stream)))
+
+
+;;; (define (naturals)
+;;;   (define (naturals-iter n)
+;;;     (thunk
+;;;       (cons n (naturals-iter (+ n 1)))))
+;;;   ((naturals-iter 0)))
+
+;;; (define (ex1)
+;;;   (define s (stream-foldl cons empty (naturals)))
+;;;   (check-equal? (stream-get s) empty)
+;;;   (check-equal? (stream-get (stream-next s)) (list 0))
+;;;   (check-equal? (stream-get (stream-next (stream-next s))) (list 1 0))
+;;;   (check-equal? (stream-get (stream-next (stream-next (stream-next s)))) (list 2 1 0)))
+;;; (ex1)
+
+;;; (define (ex2)
+;;;   (define s (stream-skip 10 (naturals)))
+;;;   (check-equal? (stream-get s) 10)
+;;;   (check-equal? (stream-get (stream-next s)) 11)
+;;;   (check-equal? (stream-get (stream-next (stream-next s))) 12))
+;;; (ex2)
+
+;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; ;; EVALUATION
+
+;;; ;; Exercise 10.b
+;;; (check-equal? (r:eval-exp (r:bool #t)) #t)
+;;; (check-equal? (r:eval-exp (r:bool #f)) #f)
+;;; (check-equal? (r:eval-exp (r:variable '+)) +)
+;;; ;; Exercise 10.c
+;;; (check-true (r:eval-exp (r:apply (r:variable 'and) (list (r:bool #t) (r:bool #t)))))
+;;; (check-false (r:eval-exp (r:apply (r:variable 'and) (list (r:bool #t) (r:bool #f)))))
+;;; (check-equal?
+;;;   (r:eval-exp
+;;;     (r:apply (r:variable 'and)
+;;;       (list
+;;;         (r:bool #t)
+;;;         (r:bool #t)
+;;;         (r:apply (r:variable '+) (list (r:number 2) (r:number 3))))))
+;;;   5)
+
+;;; (check-equal? (r:eval-exp (r:apply (r:variable '+) (list (r:number 1) (r:number 2) (r:number 3)))) 6)
+;;; (check-equal?
+;;;   (r:eval-exp
+;;;     (r:apply (r:variable 'and)
+;;;       (list (r:bool #t) (r:number 2) (r:number 3))))
+;;;   3)
+
+;;; (check-true (r:eval-exp (r:apply (r:variable 'and) (list (r:bool #t) (r:bool #t)))))
+;;; (check-false (r:eval-exp (r:apply (r:variable 'and) (list (r:bool #t) (r:bool #f)))))
+
+;;; (check-equal?
+;;;   (r:eval-exp
+;;;     (r:apply (r:variable '+)
+;;;       (list (r:number 1) (r:number 2) (r:number 3))))
+;;;   6)
+;;; (check-equal?
+;;;   (r:eval-exp
+;;;     (r:apply (r:variable 'and)
+;;;       (list (r:bool #t) (r:number 2) (r:number 3))))
+;;;   3)
