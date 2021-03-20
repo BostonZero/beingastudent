@@ -140,11 +140,11 @@
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; The power function is exemplified below.
-; This function is needed to test Exercise 7
+; Exercise 7
 ;
-(define (p:pow p n)
-  (cond [(<= n 0) p:epsilon]
-        [else (p:cat p (p:pow p (- n 1)))]))
+;;; (define (p:pow p n)
+;;;   (cond [(<= n 0) p:epsilon]
+;;;         [else (p:cat p (p:pow p (- n 1)))]))
 
 ; Input: {a, b}
 
@@ -171,12 +171,12 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; Exercise 1
+; Exercise 1:DONE
 (check-equal?
   (set)
   (p:list->set p:void))
 
-; Exercise 2
+; Exercise 2:DONE
 (check-equal?
   (set "")
   (p:list->set p:epsilon))
@@ -188,9 +188,9 @@
 
 ; Exercise 4
 
-(check-equal?
-  (p:list->set (p:union (p:list "a" "b" "c") (p:list "d" "e" "f")))
-  (set "a" "b" "c" "d" "e" "f"))
+;;; (check-equal?
+;;;   (p:list->set (p:union (p:list "a" "b" "c") (p:list "d" "e" "f")))
+;;;   (set "a" "b" "c" "d" "e" "f"))
 
 ;;; (check-equal?
 ;;;   (p:list->set (p:union p:void (p:list "d" "e" "f")))

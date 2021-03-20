@@ -27,7 +27,7 @@
 (define (stream-next stream) ((cdr stream)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(struct r:bool (value))
+(struct r:bool (value) #:transparent)
 
 ;; Exercise 1
 (define p:void (delay empty))
@@ -36,7 +36,7 @@
 (define p:epsilon (delay (list "")))
 
 ;; Exercise 3
-(define (p:char p) (delay (list p)))
+(define (p:char p) (delay p))
 
 ;; Exercise 4
 (define (p:union p1 p2) 'todo)
