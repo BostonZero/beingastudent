@@ -1,4 +1,6 @@
 #lang racket
 (require rackunit)
 
-(+ 1 #f)
+(define ex1 #\a)
+ex1
+(display (list (string ex1)))

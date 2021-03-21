@@ -36,26 +36,43 @@
 (define p:epsilon (delay (list "")))
 
 ;; Exercise 3
-(define (p:char p) (delay p))
+(define (p:char p) (delay (list (string p))))
 
 ;; Exercise 4
-(define (p:union p1 p2) 'todo)
+(define (p:union p1 p2) 
+  ;if both empty, return empty
+  (cond [(and (empty? p1) (empty? p2)) empty]
+  ;if p1 empty, recurse with switched
+   [(and (empty? p1) (not (empty? p2))) (p:union p2 p1)]
+  ;else add p1 and recurse switched
+   [else (delay (cons p1 (p:union p2 (rest p1))))]))
 
 ;; Exercise 5
-(define (p:prefix s p) 'todo)
+(define (p:prefix s p)
+
+
+ (delay (cons 
+         (string-append p (first p))
+         ())))
+
+ 
+
+
+
 
 ;; Exercise 6
-(define (p:cat p1 p2) 'todo)
+(define (p:cat p1 p2) p1) ;NOT DONE BUT IM GETTING ERRORS
 
 ;; Exercise 7
 
-(define (p:star union pow p) 'todo)
+(define (p:star union pow p) 'starfail)
 
 ;; Exercse 8
-(define (stream-foldl f a s) 'todo)
+(define (stream-foldl f a s) 'sfoldfail)
 
 ;; Exercise 9
-(define (stream-skip n s) 'todo)
+(define (stream-skip n s) 'ssfail)
+
 
 ;; Exercise 10
 (define (r:eval-builtin sym)
@@ -84,6 +101,8 @@
     
     
     [else (error "Unknown expression:" exp)]))
+
+   
 
 
 ;do order

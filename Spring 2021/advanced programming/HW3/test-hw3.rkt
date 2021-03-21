@@ -140,43 +140,43 @@
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; The power function is exemplified below.
-; Exercise 7
+; This function is needed to test Exercise 7
 ;
 ;;; (define (p:pow p n)
 ;;;   (cond [(<= n 0) p:epsilon]
 ;;;         [else (p:cat p (p:pow p (- n 1)))]))
 
-; Input: {a, b}
+;;; ; Input: {a, b}
 
-; Power of 0: every string that contains 'a' and 'b' of length 0
-(check-equal?
-  (p:list->set (p:pow (p:list "a" "b") 0))
-  (set ""))
+;;; ; Power of 0: every string that contains 'a' and 'b' of length 0
+;;; (check-equal?
+;;;   (p:list->set (p:pow (p:list "a" "b") 0))
+;;;   (set ""))
 
-; Power of 1: every string that contains 'a' and 'b' of length 1
-(check-equal?
-  (p:list->set (p:pow (p:list "a" "b") 1))
-  (set "a" "b"))
+;;; ; Power of 1: every string that contains 'a' and 'b' of length 1
+;;; (check-equal?
+;;;   (p:list->set (p:pow (p:list "a" "b") 1))
+;;;   (set "a" "b"))
 
-; Power of 2: every string that contains 'a' and 'b' of length 2
-(check-equal?
-  (p:list->set (p:pow (p:list "a" "b") 2))
-  (set "aa" "ba" "ab" "bb"))
+;;; ; Power of 2: every string that contains 'a' and 'b' of length 2
+;;; (check-equal?
+;;;   (p:list->set (p:pow (p:list "a" "b") 2))
+;;;   (set "aa" "ba" "ab" "bb"))
 
-; Power of 3: every string that contains 'a' and 'b' of length 3
-(check-equal?
-  (p:list->set (p:pow (p:list "a" "b") 3))
-  (set "aaa" "baa" "aba" "bba" "aab" "bab" "abb" "bbb"))
+;;; ; Power of 3: every string that contains 'a' and 'b' of length 3
+;;; (check-equal?
+;;;   (p:list->set (p:pow (p:list "a" "b") 3))
+;;;   (set "aaa" "baa" "aba" "bba" "aab" "bab" "abb" "bbb"))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; Exercise 1:DONE
+; Exercise 1
 (check-equal?
   (set)
   (p:list->set p:void))
 
-; Exercise 2:DONE
+; Exercise 2
 (check-equal?
   (set "")
   (p:list->set p:epsilon))
@@ -204,11 +204,11 @@
 ;;;   (p:list->set (p:union p:epsilon (p:list "d" "e" "f")))
 ;;;   (set "" "d" "e" "f"))
 
-;;; ; Although you mush show that the two sets are interleaved, you can
-;;; ; choose to start with the left-hand side or with the right-hand side.
-;;; ;
-;;; ; MAKE SURE YOU PASS ONE OF THESE TESTS. YOU CANNOT PASS BOTH
-;;; ;
+; Although you mush show that the two sets are interleaved, you can
+; choose to start with the left-hand side or with the right-hand side.
+;
+; MAKE SURE YOU PASS ONE OF THESE TESTS. YOU CANNOT PASS BOTH
+;
 ;;; (define a-d-b-e-c-f (p:list->list (p:union (p:list "a" "b" "c") (p:list "d" "e" "f"))))
 
 ;;; (check-equal? (p:take 2 a-d-b-e-c-f)
@@ -233,8 +233,8 @@
 ;;;   (set)
 ;;; )
 
-;;; ; Exercise 6: prefix every string in the left-hand side with every string
-;;; ; of the right-hand side.
+; Exercise 6: prefix every string in the left-hand side with every string
+; of the right-hand side.
 ;;; (check-equal?
 ;;;   (p:list->set (p:cat (p:list "x" "y") (p:list "a" "b" "c")))
 ;;;   (set "xa" "xb" "xc" "ya" "yb" "yc")
@@ -250,21 +250,21 @@
 ;;;   (set)
 ;;; )
 
-;;; ; Exercise 7
-;;; ; If we range over the first 100 elements, we should find at least these
-;;; ; elements
+; Exercise 7
+; If we range over the first 100 elements, we should find at least these
+; elements
 
 ;;; (check-set-contains?
 ;;;   (p:take 100 (p:star p:union p:pow (p:list "a" "b")))
 ;;;   (set "" "a" "b" "ab" "ba" "aa" "bb")
 ;;; )
 
-;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; ;; STREAMS
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; STREAMS
 
-;;; ;; Exercise 3
+;; Exercise 3
 
-;;; ; Retrieves the current value of the stream
+; Retrieves the current value of the stream
 ;;; (define (stream-get stream) (car stream))
 ;;; ; Retrieves the thunk and evaluates it, returning a thunk
 ;;; (define (stream-next stream) ((cdr stream)))
@@ -291,8 +291,8 @@
 ;;;   (check-equal? (stream-get (stream-next (stream-next s))) 12))
 ;;; (ex2)
 
-;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; ;; EVALUATION
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; EVALUATION
 
 ;;; ;; Exercise 10.b
 ;;; (check-equal? (r:eval-exp (r:bool #t)) #t)
