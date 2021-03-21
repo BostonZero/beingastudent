@@ -25,7 +25,12 @@
 (define (p:rest l) (cdr (force l)))
 (define (stream-get stream) (car stream))
 (define (stream-next stream) ((cdr stream)))
-
+(define (p:list->set p)
+  (cond [(p:empty? p) (set)]
+        [else
+          (set-add
+            (p:list->set (p:rest p))
+            (p:first p))]))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (struct r:bool (value) #:transparent)
 
@@ -41,37 +46,60 @@
 ;; Exercise 4
 (define (p:union p1 p2) 
   ;if both empty, return empty
-  (cond [(and (empty? p1) (empty? p2)) empty]
+  (cond [(and (p:empty? p1) (p:empty? p2)) (delay empty)]
   ;if p1 empty, recurse with switched
-   [(and (empty? p1) (not (empty? p2))) (p:union p2 p1)]
+   [(and (p:empty? p1) (not (p:empty? p2))) (p:union p2 p1)]
   ;else add p1 and recurse switched
-   [else (delay (cons p1 (p:union p2 (rest p1))))]))
+   [else (delay (cons (p:first p1) (p:union p2 (p:rest p1))))]))
 
 ;; Exercise 5
-(define (p:prefix s p)
-
-
- (delay (cons 
-         (string-append p (first p))
-         ())))
-
- 
-
-
-
+(define (p:prefix s p) 
+ (cond [(p:empty? p) (delay empty)]
+       [else (delay (cons 
+                     (string-append s (p:first p))
+                     (p:prefix s (p:rest p))))]))
 
 ;; Exercise 6
-(define (p:cat p1 p2) p1) ;NOT DONE BUT IM GETTING ERRORS
+(define (p:cat p1 p2)
+;;call prefix with each element 
+(cond
+  [(p:empty? p1) (delay empty)]
+  [else (delay (cons
+                (p:list->set (p:prefix (p:first p1) p2))
+                (p:cat (p:rest p1) p2)))]))
+  
+
+
+
+
+
+ ;NOT DONE BUT IM GETTING ERRORS
 
 ;; Exercise 7
 
 (define (p:star union pow p) 'starfail)
 
 ;; Exercse 8
-(define (stream-foldl f a s) 'sfoldfail)
+(define (stream-foldl f a s) 
+    (define (sfhelper accum f s)  
+        (thunk (cons 
+                accum
+                (sfhelper 
+                  (f (stream-get s) accum) 
+                  f 
+                  (stream-next s)))))
+    ((sfhelper a f s)))
+
 
 ;; Exercise 9
-(define (stream-skip n s) 'ssfail)
+(define (stream-skip n s)    
+  (define (sskiphelper accum strm)
+       (thunk
+          (cons 
+             (+ accum (stream-get strm))
+             (sskiphelper accum (stream-next strm)))))
+  ((sskiphelper n s)))
+
 
 
 ;; Exercise 10
@@ -106,9 +134,9 @@
 
 
 ;do order
-;;; - r:bool
-;;; - p:void, p:epsilon, p:char
-;;; - stream-skip, p:cat, p:union, p:prefix
+;;; - =r:bool=
+;;; - =p:void=, =p:epsilon=, =p:char=
+;;; - =stream-skip=, p:cat, =p:union=, =p:prefix=
 ;;; - stream-fold 
 ;;; - eval
 ;;; - p:star

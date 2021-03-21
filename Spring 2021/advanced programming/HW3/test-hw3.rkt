@@ -172,19 +172,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; Exercise 1
-(check-equal?
-  (set)
-  (p:list->set p:void))
+;;; (check-equal?
+;;;   (set)
+;;;   (p:list->set p:void))
 
-; Exercise 2
-(check-equal?
-  (set "")
-  (p:list->set p:epsilon))
+;;; ; Exercise 2
+;;; (check-equal?
+;;;   (set "")
+;;;   (p:list->set p:epsilon))
 
-; Exercise 3
-(check-equal?
-  (set "a")
-  (p:list->set (p:char #\a)))
+;;; ; Exercise 3
+;;; (check-equal?
+;;;   (set "a")
+;;;   (p:list->set (p:char #\a)))
 
 ; Exercise 4
 
@@ -235,20 +235,20 @@
 
 ; Exercise 6: prefix every string in the left-hand side with every string
 ; of the right-hand side.
-;;; (check-equal?
-;;;   (p:list->set (p:cat (p:list "x" "y") (p:list "a" "b" "c")))
-;;;   (set "xa" "xb" "xc" "ya" "yb" "yc")
-;;; )
+(check-equal?
+  (p:list->set (p:cat (p:list "x" "y") (p:list "a" "b" "c")))
+  (set "xa" "xb" "xc" "ya" "yb" "yc")
+)
 
-;;; (check-equal?
-;;;   (p:list->set (p:cat (p:list "x" "y") p:empty))
-;;;   (set)
-;;; )
+(check-equal?
+  (p:list->set (p:cat (p:list "x" "y") p:empty))
+  (set)
+)
 
-;;; (check-equal?
-;;;   (p:list->set (p:cat p:empty (p:list "x" "y")))
-;;;   (set)
-;;; )
+(check-equal?
+  (p:list->set (p:cat p:empty (p:list "x" "y")))
+  (set)
+)
 
 ; Exercise 7
 ; If we range over the first 100 elements, we should find at least these
