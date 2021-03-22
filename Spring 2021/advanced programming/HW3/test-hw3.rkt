@@ -249,7 +249,7 @@
   (p:list->set (p:cat p:empty (p:list "x" "y")))
   (set)
 )
-
+;;; (p:cat (p:list "x" "y") (p:list "a" "b" "c"))
 ; Exercise 7
 ; If we range over the first 100 elements, we should find at least these
 ; elements

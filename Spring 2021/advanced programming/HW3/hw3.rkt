@@ -25,12 +25,18 @@
 (define (p:rest l) (cdr (force l)))
 (define (stream-get stream) (car stream))
 (define (stream-next stream) ((cdr stream)))
-(define (p:list->set p)
-  (cond [(p:empty? p) (set)]
+(define (p:list->list p)
+  (cond [(p:empty? p) empty]
         [else
-          (set-add
-            (p:list->set (p:rest p))
-            (p:first p))]))
+          (cons
+            (p:first p)
+            (p:list->list (p:rest p)))]))
+(define (p:list . l)
+  (list->p:list l))            
+(define (list->p:list l)
+  (foldr (lambda (elem new-l) (delay (cons elem new-l))) (delay empty) l))            
+            
+            
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (struct r:bool (value) #:transparent)
 
@@ -61,22 +67,16 @@
 
 ;; Exercise 6
 (define (p:cat p1 p2)
-;;call prefix with each element 
-(cond
-  [(p:empty? p1) (delay empty)]
-  [else (delay (cons
-                (p:list->set (p:prefix (p:first p1) p2))
-                (p:cat (p:rest p1) p2)))]))
-  
+  (define (bigstitch p1 p2 clone-p2)
+   (cond
+     [(p:empty? p1) (delay empty)] ;do not recurse
+     [(p:empty? p2) (bigstitch (p:rest p1) clone-p2 clone-p2)] ;new set condition
+     [else (delay (cons ;continue
+                     (string-append (p:first p1) (p:first p2))
+                     (bigstitch p1 (p:rest p2) clone-p2)))])) 
 
-
-
-
-
- ;NOT DONE BUT IM GETTING ERRORS
-
+(bigstitch p1 p2 p2))
 ;; Exercise 7
-
 (define (p:star union pow p) 'starfail)
 
 ;; Exercse 8
