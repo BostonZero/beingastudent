@@ -136,7 +136,7 @@
 ;do order
 ;;; - =r:bool=
 ;;; - =p:void=, =p:epsilon=, =p:char=
-;;; - =stream-skip=, p:cat, =p:union=, =p:prefix=
-;;; - stream-fold 
+;;; - =stream-skip=, =p:cat=, =p:union=, =p:prefix=
+;;; - =stream-fold= 
 ;;; - eval
 ;;; - p:star
