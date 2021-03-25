@@ -25,17 +25,7 @@
 (define (p:rest l) (cdr (force l)))
 (define (stream-get stream) (car stream))
 (define (stream-next stream) ((cdr stream)))
-(define (p:list->list p)
-  (cond [(p:empty? p) empty]
-        [else
-          (cons
-            (p:first p)
-            (p:list->list (p:rest p)))]))
-(define (p:list . l)
-  (list->p:list l))            
-(define (list->p:list l)
-  (foldr (lambda (elem new-l) (delay (cons elem new-l))) (delay empty) l))            
-            
+           
             
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (struct r:bool (value) #:transparent)

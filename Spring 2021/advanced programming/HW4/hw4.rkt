@@ -33,7 +33,26 @@
   (first (e:lambda-body lam)))
 
 ;; Exercise 1
-(define (s:subst exp var val) 'todo)
+(define (s:subst exp var val) 
+  (cond[(s:expression? exp) 
+        (cond [(s:variable? exp) 
+               (cond
+                  [(equal? exp var) val]
+                  [else exp])]
+               
+              [(s:value? exp) 
+               (cond [(s:number? exp) exp]
+                     [else 
+                        (cond
+                          [(not (equal? (s:lambda-param1 exp) (s:lambda-body1 exp))) 
+                           (s:lambda (list (s:lambda-param1 exp)) (list (s:subst (s:lambda-body1 exp) var val)))]
+                
+                          [else (s:lambda (list (s:lambda-param1 exp)) (list (s:lambda-body1 exp)))])])]
+              [else (s:apply (s:subst (s:apply-func exp) var val) (list (s:subst (s:apply-arg1 exp) var val)))])]
+     
+       [else (error "Unknown expression:" exp)]))
+     
+     
 
 ;; Exercise 2
 (define (s:eval subst exp) 'todo)
