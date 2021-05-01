@@ -34,10 +34,10 @@
 (define p:void (delay empty))
 
 ;; Exercise 2
-(define p:epsilon (delay (list "")))
+(define p:epsilon (delay (cons (quote "") (delay empty))))
 
 ;; Exercise 3
-(define (p:char p) (delay (list (string p))))
+(define (p:char p) (delay (cons (string p) (delay empty))))
 
 ;; Exercise 4
 (define (p:union p1 p2) 
@@ -91,13 +91,20 @@
   ((sskiphelper n s)))
 
 
-
+(define (do-and)
+    (lambda inp 
+       (cond[(empty? inp) #t]
+       [else (foldl (lambda (first second) (and second first)) (car inp) inp)]
+    )
+   )
+)
 ;; Exercise 10
 (define (r:eval-builtin sym)
   (cond [(equal? sym '+) +]
         [(equal? sym '*) *]
         [(equal? sym '-) -]
         [(equal? sym '/) /]
+        [(equal? sym 'and) (do-and)]
         [else #f]))
 
 

@@ -50,7 +50,7 @@
                           [else (s:lambda (list (s:lambda-param1 exp)) (list (s:lambda-body1 exp)))])])]
               [else (s:apply (s:subst (s:apply-func exp) var val) (list (s:subst (s:apply-arg1 exp) var val)))])]
      
-       [else (error "Unknown expression:" exp)]))
+       [else (error "Unknown exp:" exp)]))
      
      
 
