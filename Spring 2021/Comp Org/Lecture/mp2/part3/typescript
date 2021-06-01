@@ -1,0 +1,36 @@
+Script started on Thu 01 Apr 2021 11:13:47 PM EDT
+tuser@tutor-vserver:~/mp2/part3$ stri[K[K[K[Kmtip 0f[K[K-=f[K[Kf strncpy.lnx 
+For command help, type ~?
+For help on args, rerun without args
+Code starts at 0x100100
+Using board # 1 
+~downloading strncpy.lnx
+........Done.
+
+Download done, setting EIP to 100100.
+Tutor> 100100<Esc>
+D
+No such command: 100100D, use h command for help
+Tutor> go 100100
+Enter a string of characters:
+1234
+Enter the number of characters to copy:
+4
+The strncpy function returned the correct pointer value.
+The strncpy function copied the data correctly.
+The content of the first 4 characters of array s is: 1234
+Exception 3 at EIP=00100110: Breakpoint
+Tutor> go 100100
+Enter a string of characters:
+873401298
+Enter the number of characters to copy:
+1234821374Exception 14 at EIP=00100272: Page fault
+Tutor> 
+Tutor> 
+Quit handler: 
+killing process 1902 Leaving board #1
+tuser@tutor-vserver:~/mp2/part3$ ^C
+tuser@tutor-vserver:~/mp2/part3$ exit
+exit
+
+Script done on Thu 01 Apr 2021 11:15:25 PM EDT

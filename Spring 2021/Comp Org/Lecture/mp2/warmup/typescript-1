@@ -1,0 +1,167 @@
+Script started on Thu 04 Mar 2021 05:20:56 PM EST
+]0;tuser@tutor-vserver: ~tuser@tutor-vserver:~$ ssh [K[K[K[Kuml
+bash: uml: command not found
+]0;tuser@tutor-vserver: ~tuser@tutor-vserver:~$ ssh fvi[K[K[Kgiftakis@ssh[K[K[K[K@users.cs.umb.edu
+Welcome to Ubuntu 20.04.2 LTS (GNU/Linux 5.4.0-65-generic x86_64)
+
+  System information as of Thu 04 Mar 2021 05:22:36 PM EST
+
+  System load:  0.0                 Temperature:           46.0 C
+  Usage of /:   12.2% of 195.86GB   Processes:             602
+  Memory usage: 1%                  Users logged in:       33
+  Swap usage:   2%                  IPv4 address for eno1: 158.121.104.215
+
+5 updates can be installed immediately.
+0 of these updates are security updates.
+To see these additional updates run: apt list --upgradable
+
+*** System restart required ***
+Authorized users only.
+
+Contact: operator@cs.umb.edu or 617-287-6480
+
+2021-01-31
+  The hostname alias users.cs.umb.edu now points to pe15
+instead of itserver6.  itserver6 will continue to run and
+be available for a while, until pe15 proves to be a fully
+suitable replacement.  You will, however, have to use its
+real name; its Fully Qualified Doman Name (FQDN) is
+itserver6.cs.umb.edu.
+
+  - Please NEVER include your student ID or password in
+    requests or reports to operator.  We don't need to know.
+    Please ALWAYS do include your UNIX login name; that helps.
+
+You have mail.
+Last login: Thu Mar  4 17:19:20 2021 from 100.0.60.134
+giftakis@pe15:~$ cd ~/cs341/mp2
+giftakis@pe15:~/cs341/mp2$ ls
+mp2warmup.pdf  warmup
+giftakis@pe15:~/cs341/mp2$ cd warmup/
+giftakis@pe15:~/cs341/mp2/warmup$ ls
+tiny.lnx  tiny.o  tiny.s
+giftakis@pe15:~/cs341/mp2/warmup$ cat tiny.s
+# tiny.s: mp2warmup program
+
+        .globl _start
+_start:
+	movl $8, %eax
+	addl $0x3, %eax
+	movl %eax, 0x200
+	int $3
+   	.end
+
+giftakis@pe15:~/cs341/mp2/warmup$ as --32-[K -ak[Kl -o tiny.o tins[Ky.s
+GAS LISTING tiny.s 			page 1
+
+
+   1              	# tiny.s: mp2warmup program
+   2              	
+   3              	        .globl _start
+   4              	_start:
+   5 0000 B8080000 		movl $8, %eax
+   5      00
+   6 0005 83C003   		addl $0x3, %eax
+   7 0008 A3000200 		movl %eax, 0x200
+   7      00
+   8 000d CC       		int $3
+   9              	   	.end
+giftakis@pe15:~/cs341/mp2/warmup$ ld -m eld[Kf_e[K[K_i386 -N -Ttext 0x100100 -o tiny.lnx tiny.o
+giftakis@pe15:~/cs341/mp2/warmup$ objdump -SS[K tiny.lnx
+
+tiny.lnx:     file format elf32-i386
+
+
+Disassembly of section .text:
+
+00100100 <_start>:
+  100100:	b8 08 00 00 00       	mov    $0x8,%eax
+  100105:	83 c0 03             	add    $0x3,%eax
+  100108:	a3 00 02 00 00       	mov    %eax,0x200
+  10010d:	cc                   	int3   
+giftakis@pe15:~/cs341/mp2/warmup$ logout
+Connection to users.cs.umb.edu closed.
+]0;tuser@tutor-vserver: ~tuser@tutor-vserver:~$ scp giftakis@users.cs.umb.[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K;s[K[Kls [K
+[0m[34;42minclude[0m  [34;42mlib[0m  [01;34mmp1[0m  [01;34mmp2[0m  [01;32msyms[0m  [01;32mtest[0m  [34;42mtestaout[0m  [34;42mtestelf[0m  [01;32mtestelf.syms[0m  [01;32mtest.lnx[0m  [01;32mtutor[0m  [01;32mtutor_u.o[0m  typescript  [01;32musyms[0m
+]0;tuser@tutor-vserver: ~tuser@tutor-vserver:~$ cd mp2
+]0;tuser@tutor-vserver: ~/mp2tuser@tutor-vserver:~/mp2$ ls
+[0m[01;32mtiny.lnx[0m  tiny.o  tiny.s
+]0;tuser@tutor-vserver: ~/mp2tuser@tutor-vserver:~/mp2$ mtip -f tiny.lnx
+For command help, type ~?
+For help on args, rerun without args
+Code starts at 0x100100
+Using board # 1 
+~downloading tiny.lnx
+.Done.
+
+Download done, setting EIP to 100100.
+Tutor> md 100100
+00100100    b8 08 00 00 00 83 c0 03 a3 00 02 00 00 cc d4 83 ................
+Tutor> md 200
+00000200    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ................
+Tutor> rs eip 100100
+Tutor> t
+Exception 1 at EIP=00100105: Debugger interrupt
+Tutor> rd
+EAX=00000008 EBX=00000000   EBP=00057890
+EDX=00000000 ECX=0006967c   ESP=0005788c
+ESI=00013e10 EDI=00051ffc   EIP=00100105
+EFLAGS=0306 (IF=1 SF=0 ZF=0 CF=0 OF=0)
+Tutor> md 200
+00000200    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ................
+Tutor> t ms 200 00000000
+Tutor> md 200
+00000200    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ................
+Tutor> rs eip 100100
+Tutor> t
+Exception 1 at EIP=00100105: Debugger interrupt
+Tutor> rd
+EAX=00000008 EBX=00000000   EBP=00057890
+EDX=00000000 ECX=0006967c   ESP=0005788c
+ESI=00013e10 EDI=00051ffc   EIP=00100105
+EFLAGS=0306 (IF=1 SF=0 ZF=0 CF=0 OF=0)
+Tutor> ms 200
+Tutor> t
+Exception 1 at EIP=00100108: Debugger interrupt
+Tutor> rd
+EAX=0000000b EBX=00000000   EBP=00057890
+EDX=00000000 ECX=0006967c   ESP=0005788c
+ESI=00013e10 EDI=00051ffc   EIP=00100108
+EFLAGS=0302 (IF=1 SF=0 ZF=0 CF=0 OF=0)
+Tutor> md 1 200
+00000200    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ................
+Tutor> t
+Exception 1 at EIP=0010010d: Debugger interrupt
+Tutor> rd
+EAX=0000000b EBX=00000000   EBP=00057890
+EDX=00000000 ECX=0006967c   ESP=0005788c
+ESI=00013e10 EDI=00051ffc   EIP=0010010d
+EFLAGS=0302 (IF=1 SF=0 ZF=0 CF=0 OF=0)
+Tutor> md 200
+00000200    0b 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ................
+Tutor> t
+Exception 3 at EIP=0010010e: Breakpoint
+Tutor> ~q 
+Quit handler: 
+killing process 1798 Leaving board #1
+]0;tuser@tutor-vserver: ~/mp2tuser@tutor-vserver:~/mp2$ mtip -f tiny.lnx
+For command help, type ~?
+For help on args, rerun without args
+Code starts at 0x100100
+Using board # 1 
+~downloading tiny.lnx
+
+gd.bDone.
+
+Download done, setting EIP to 100100.
+Tutor> gdb
+Setting gdb dev to COM1, starting gdb (CTRL-C to abort).
+
+Tutor> 
+Tutor> 
+Quit handler: 
+killing process 1800 Leaving board #1
+]0;tuser@tutor-vserver: ~/mp2tuser@tutor-vserver:~/mp2$ exit
+exit
+
+Script done on Thu 04 Mar 2021 05:33:19 PM EST

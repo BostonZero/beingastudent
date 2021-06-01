@@ -25,7 +25,16 @@
 ;; Exercise 1
 (define/contract (d:eval-exp mem env exp)
   (-> mem? handle? d:expression? eff?)
-  'todo)
+  (cond  
+             [ (d:variable? exp)
+                  (eff mem (environ-get mem env exp))
+              ] 
+             [(d:lambda? exp)
+               (eff mem (d:closure env exp))
+             ]
+             
+             [else (eff mem exp)]
+             ))
 ;; Exercise 2
 (define/contract (d:eval-term mem env term)
   (-> mem? handle? d:term? eff?)

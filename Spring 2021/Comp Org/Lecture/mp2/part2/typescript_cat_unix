@@ -1,0 +1,58 @@
+Script started on 2021-03-31 15:00:05-04:00 [TERM="xterm-256color" TTY="/dev/pts/28" COLUMNS="80" LINES="58"]
+]0;giftakis@pe15: ~/cs341/mp2/part2[01;32mgiftakis@pe15[00m:[01;34m~/cs341/mp2/part2[00m$ [K]0;giftakis@pe15: ~/cs341/mp2/part2[01;32mgiftakis@pe15[00m:[01;34m~/cs341/mp2/part2[00m$ pwd
+/home/giftakis/cs341/mp2/part2
+]0;giftakis@pe15: ~/cs341/mp2/part2[01;32mgiftakis@pe15[00m:[01;34m~/cs341/mp2/part2[00m$ ks -lg
+ks: command not found
+]0;giftakis@pe15: ~/cs341/mp2/part2[01;32mgiftakis@pe15[00m:[01;34m~/cs341/mp2/part2[00m$ cat opr[K[K[Kprintbin.s
+.global printbin
+.text
+printbin: 
+	pushl %ebp
+	movl %esp, %ebp
+
+	movb 8(%ebp), %al
+	movl $string, %edx
+	call donibble
+	movb $' ', (%edx)
+	incl %edx
+	call donibble
+	movl $string, %eax
+
+	movl %ebp, %esp
+	popl %ebp
+	ret				
+
+
+donibble:
+	movl $4, %ecx
+loop0:
+	shlb $1, %al
+	jc loop1
+	movb $'0', (%edx)
+	jmp loop2
+loop1:
+	movb $'1', (%edx)
+loop2:
+	incl %edx
+	loop loop0
+	ret
+
+	.data
+string:
+	.asciz "xxxx xxxx\n"
+]0;giftakis@pe15: ~/cs341/mp2/part2[01;32mgiftakis@pe15[00m:[01;34m~/cs341/mp2/part2[00m$ make clean
+rm -f *.o *.syms *.lnx core syms
+]0;giftakis@pe15: ~/cs341/mp2/part2[01;32mgiftakis@pe15[00m:[01;34m~/cs341/mp2/part2[00m$ make a[KA=printbin
+as --32 -o printbin.o printbin.s
+gcc -gdwarf-2 -gstrict-dwarf -march=i586 -m32 -fno-builtin -fno-stack-protector -nostdlib     -c -Wall -I/home/cheungr/serl/tutor-linux/include -c -o printbinc.o printbinc.c
+ld -m elf_i386 -N -Ttext 100100 -o printbin.lnx \
+	/home/cheungr/serl/tutor-linux/libc/startup0.o /home/cheungr/serl/tutor-linux/libc/startup.o \
+	printbinc.o printbin.o /home/cheungr/serl/tutor-linux/libc/libc.a
+rm -f syms;nm -n printbin.lnx>printbin.syms;ln -s printbin.syms syms
+]0;giftakis@pe15: ~/cs341/mp2/part2[01;32mgiftakis@pe15[00m:[01;34m~/cs341/mp2/part2[00m$ ls
+makefile     printbinc.o   printbin.o  printbin.syms  [0m[01;36msyms[0m
+printbinc.c  [01;32mprintbin.lnx[0m  printbin.s  strncpyc.c     typescript
+]0;giftakis@pe15: ~/cs341/mp2/part2[01;32mgiftakis@pe15[00m:[01;34m~/cs341/mp2/part2[00m$ exit
+exit
+
+Script done on 2021-03-31 15:00:41-04:00 [COMMAND_EXIT_CODE="0"]

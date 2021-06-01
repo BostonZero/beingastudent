@@ -1,0 +1,49 @@
+Script started on Wed 31 Mar 2021 03:05:52 PM EDT
+]0;tuser@tutor-vserver: ~/mp2/part2tuser@tutor-vserver:~/mp2/part2$ gdb printbin.lnx
+GNU gdb (GDB) 7.0.1-debian
+Copyright (C) 2009 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "i486-linux-gnu".
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>...
+Reading symbols from /home/tuser/mp2/part2/printbin.lnx...done.
+(gdb) tar t[Krem /dev/ttys[KS0
+Remote debugging using /dev/ttyS0
+_startupc () at startup.c:7
+7	startup.c: No such file or directory.
+	in startup.c
+(gdb) $ei[K[K[Kset $eip=0x100100
+(gdb) b *0x1001e5
+Breakpoint 1 at 0x1001e5
+(gdb) c
+Continuing.
+
+Breakpoint 1, 0x001001e5 in donibble ()
+(gdb) c
+Continuing.
+
+Breakpoint 1, 0x001001e5 in donibble ()
+(gdb) c
+Continuing.
+
+Program received signal SIGTRAP, Trace/breakpoint trap.
+_startupc () at startup.c:7
+7	in startup.c
+(gdb) c
+Continuing.
+q
+
+Breakpoint 1, 0x001001e5 in donibble ()
+(gdb) q
+A debugging session is active.
+
+	Inferior 1 [Remote target] will be killed.
+
+Quit anyway? (y or n) y
+]0;tuser@tutor-vserver: ~/mp2/part2tuser@tutor-vserver:~/mp2/part2$ exit
+exit
+
+Script done on Wed 31 Mar 2021 03:08:24 PM EDT

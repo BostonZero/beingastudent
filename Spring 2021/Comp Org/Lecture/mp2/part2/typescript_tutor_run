@@ -1,0 +1,40 @@
+Script started on Wed 31 Mar 2021 03:08:52 PM EDT
+tuser@tutor-vserver:~/mp2/part2$ exitgdb printbin.lnxexit[Kcat printbin.sexit[Kcat printbin.s[8Pls -lg[Kcd part2/gdb printbin.lnx[7Pcd part2/ls[K -lgcat printbin.sexit[Kgdb printbin.lnxexit[K[Kexitgdb printbin.lnxexit[Kcat printbin.s[8Pls -lgcat printbin.sexit[Kgdb printbin.lnxexit[K[Kmtip -f printbin.lncx[K[Kx
+For command help, type ~?
+For help on args, rerun without args
+Code starts at 0x100100
+Using board # 1 
+~downloading printbin.lnx
+
+........Done.
+
+Download done, setting EIP to 100100.
+Tutor> go 100100
+enter the character's ascii value in hex: 
+ab
+The binary format for character « is 1010 1011
+
+Exception 3 at EIP=00100110: Breakpoint
+Tutor> <Esc>
+A
+No such command: A, use h command for help
+Tutor> go 100100
+enter the character's ascii value in hex: 
+30
+The binary format for character 0 is 0011 0000
+
+Exception 3 at EIP=00100110: Breakpoint
+Tutor> go 100100
+enter the character's ascii value in hex: 
+31
+The binary format for character 1 is 0011 0001
+
+Exception 3 at EIP=00100110: Breakpoint
+Tutor> 
+Tutor> 
+Quit handler: 
+killing process 1964 Leaving board #1
+tuser@tutor-vserver:~/mp2/part2$ exit
+exit
+
+Script done on Wed 31 Mar 2021 03:10:04 PM EDT

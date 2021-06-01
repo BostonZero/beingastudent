@@ -1,0 +1,124 @@
+Script started on Thu 04 Mar 2021 05:29:47 PM EST
+]0;tuser@tutor-vserver: ~/ts2tuser@tutor-vserver:~/ts2$ gdb tiny.lnx
+GNU gdb (GDB) 7.0.1-debian
+Copyright (C) 2009 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "i486-linux-gnu".
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>...
+tiny.lnx: No such file or directory.
+(gdb) tar rem /dev/ttyS0
+Remote debugging using /dev/ttyS0
+0x00100100 in ?? ()
+(gdb) set $eip=0x100100
+(gdb) i reg
+eax            0xb	11
+ecx            0x6967c	431740
+edx            0x0	0
+ebx            0x0	0
+esp            0x5788c	0x5788c
+ebp            0x57890	0x57890
+esi            0x13e10	81424
+edi            0x51ffc	335868
+eip            0x100100	0x100100
+eflags         0x302	[ TF IF ]
+cs             0x10	16
+ss             0x18	24
+ds             0x18	24
+es             0x18	24
+fs             0x18	24
+gs             0x18	24
+(gdb) x/x 0x200
+0x200:	0x0000000b
+(gdb) set **[K(int *([K)0x200 =0 0[C
+(gdb) x/x 0x0[K200
+0x200:	0x00000000
+(gdb) x/4xi[K[Ki 0x100100
+0x100100:	mov    $0x8,%eax
+0x100105:	add    $0x3,%eax
+0x100108:	mov    %eax,0x200
+0x10010d:	int3   
+(gdb) b *0x100105
+Breakpoint 1 at 0x100105
+(gdb) c
+Continuing.
+
+Breakpoint 1, 0x00100105 in ?? ()
+(gdb) i reg
+eax            0x8	8
+ecx            0x6967c	431740
+edx            0x0	0
+ebx            0x0	0
+esp            0x5788c	0x5788c
+ebp            0x57890	0x57890
+esi            0x13e10	81424
+edi            0x51ffc	335868
+eip            0x100105	0x100105
+eflags         0x202	[ IF ]
+cs             0x10	16
+ss             0x18	24
+ds             0x18	24
+es             0x18	24
+fs             0x18	24
+gs             0x18	24
+(gdb) b *0x100108
+Breakpoint 2 at 0x100108
+(gdb) c
+Continuing.
+
+Breakpoint 2, 0x00100108 in ?? ()
+(gdb) i reg
+eax            0xb	11
+ecx            0x6967c	431740
+edx            0x0	0
+ebx            0x0	0
+esp            0x5788c	0x5788c
+ebp            0x57890	0x57890
+esi            0x13e10	81424
+edi            0x51ffc	335868
+eip            0x100108	0x100108
+eflags         0x302	[ TF IF ]
+cs             0x10	16
+ss             0x18	24
+ds             0x18	24
+es             0x18	24
+fs             0x18	24
+gs             0x18	24
+(gdb) b *0x10010d
+Breakpoint 3 at 0x10010d
+(gdb) c
+Continuing.
+
+Breakpoint 3, 0x0010010d in ?? ()
+(gdb) i reg
+eax            0xb	11
+ecx            0x6967c	431740
+edx            0x0	0
+ebx            0x0	0
+esp            0x5788c	0x5788c
+ebp            0x57890	0x57890
+esi            0x13e10	81424
+edi            0x51ffc	335868
+eip            0x10010d	0x10010d
+eflags         0x302	[ TF IF ]
+cs             0x10	16
+ss             0x18	24
+ds             0x18	24
+es             0x18	24
+fs             0x18	24
+gs             0x18	24
+(gdb) x/x 0x200
+0x200:	0x0000000b
+(gdb) q
+A debugging session is active.
+
+	Inferior 1 [Remote target] will be killed.
+
+Quit anyway? (y or n) y
+]0;tuser@tutor-vserver: ~/ts2tuser@tutor-vserver:~/ts2$ exit
+exit
+
+Script done on Thu 04 Mar 2021 05:33:08 PM EST
