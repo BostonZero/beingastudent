@@ -1,10 +1,9 @@
 #include <iostream>
 using namespace std;
 
-    int close = 0;
-    int op3Chose = 0;
-    int op2Chose = 0;
-    int userInput,anxiety,day,pills,legs,steps;
+int close, op1Chose, op2Chose = 0;
+int userInput,anxiety,day,pills,legs,steps,hours,weight,height;
+double temp,cals;
 
 void greet(){cout << "Health-o-Matic Options\n";
       cout << "----------------------------\n";
@@ -48,8 +47,25 @@ int askAnxiety(){
   } while(anxiety < 1 || anxiety > 10);
   return anxiety;
 }
+int askHours(){
+    do{
+    cout << "Enter hours of sleep (0-24): ";
+    cin >> hours;
+    if(hours < 1 || hours > 24){
+      cout << "error, read the prompt idiot.\n";
+    }
+  } while(hours < 1 || hours > 24);
+  return hours;
+}
 int computePills(int anx, int d){
-  
+  pills = anx - d;
+  if (pills > 0){
+    return pills;    
+  }
+  else{
+    pills = 0;
+    return pills;
+  }
 }
 int computeSteps(int l){
   for(steps = 1; l > 0; l--){
@@ -60,48 +76,86 @@ int computeSteps(int l){
 }
 void walk() {
   cout << "Steps: " << computeSteps(askLegs());
-  
+  op1Chose = 1; 
 }
 void meds() {
   cout << "Pills: " << computePills(askAnxiety(), askDay());
+  op2Chose = 1;
 }
 void nap() {
-  //code
+  if(op1Chose == 0 || op2Chose == 0){
+    cout << "error, missing data";
+  }else{
+    cout << "Minutes: " << computeNap(askHours(), steps, pills);
+  }
+}
+int computeNap(int h, int s, int p){
+  if (pills == 0){
+    return h+s;
+  }else{
+    return h+s/p;
+  }
 }
 void calories() {
-  // code to be executed
+  if (op1Chose == 0){
+    cout << "error, missing data.";
+  }else{
+    cals = computeCal(askWeight(), askHeight(), askTemp(), steps);
+    cout << "calories: " << cals;
+  }
 }
-
-
-
-
-
+int askWeight(){
+    do{
+    cout << "Enter weight (50-500): ";
+    cin >> weight;
+    if(weight < 50 || weight > 500){
+      cout << "error, read the prompt idiot.\n";
+    }
+  } while(weight < 50 || weight > 500);
+  return weight;
+}
+int askHeight(){
+    do{
+    cout << "Enter height (20-90): ";
+    cin >> height;
+    if(height < 20 || height > 90){
+      cout << "error, read the prompt idiot.\n";
+    }
+  } while(height < 20 || height > 90);
+  return height;
+}
+double askTemp(){
+      do{
+    cout << "Enter room temperature (40-90): ";
+    cin >> temp;
+    if(temp < 40 || temp > 90){
+      cout << "error, read the prompt idiot.\n";
+    }
+  } while(temp < 40 || temp > 90);
+  return temp;
+}
+double computeCal(int w, int h, double t, int s){
+  return 6*w*h+1/t+s;
+}
 int main() {
-
-    while(close == 0){
-        
-      menu();
-
-      cin >> userInput;
-        switch (userInput) {
+    while(close == 0){ 
+        switch (menu()) {
         case 1:
-          cout << "Monday";
-            break;
+          walk();
+          break;
         case 2:
-          cout << "Tuesday";
-            break;
+          meds();
+          break;
         case 3:
-          cout << "Wednesday";
-            break;
+          nap();
+          break;
         case 4:
-          cout << "Thursday";
-            break;
+          calories();
+          break;
         case 5:
-          cout << "Friday";
-            close = 1;
-            break;
+          cout << "PROGRAM COMPLETE";
+          close = 1;
+          break;
         }
-
-
     }
 }
