@@ -1,0 +1,89 @@
+Script started on Thu 23 Sep 2021 10:17:18 AM EDT
+]0;tuser@tutor-vserver: ~/hw1tuser@tutor-vserver:~/hw1$ mtip -f testio.lnx
+For command help, type ~?
+For help on args, rerun without args
+Code starts at 0x100100
+Using board # 1 
+~downloading testio.lnx
+...........Done.
+
+Download done, setting EIP to 100100.
+Tutor> go 100100
+Running with device TTY1
+
+Trying simple write(4 chars)...
+hi!
+write of 4 returned 4
+<doing delay>
+Trying longer write (9 chars)
+abcdefghiwrite of 9 returned 9
+<doing delay>
+
+Trying write of 80-char string...
+AABBCCDDEEFFGGHHIIJJKKLLMMNNOOPPQQRRSSTTUUVVWWXXYYZZ[[\\]]^^__``aabbccddeeffgghh
+write returned 80
+<doing delay>
+
+Type 10 chars input to test typeahead while looping for delay...
+<doing delay>
+
+Got 0 chars into buf. Trying write of buf...
+
+Trying another 10 chars read right away...
+
+Got 0 chars on second read
+nothing in buffer
+
+
+Now turning echo off--
+
+Type 20 chars input, note lack of echoes...
+<doing delay>
+
+Trying write of buf...
+
+Asked for 20 characters; got 0
+Exception 3 at EIP=00100110: Breakpoint
+Tutor> md 300000
+00300000    3c 68 3c 69 3c 21 3c 0a 3c 61 3c 62 3c 63 3c 64 <h<i<!<.<a<b<c<d
+Tutor> 
+00300010    3c 65 3c 66 3c 67 3c 68 3c 69 3c 41 3c 41 3c 42 <e<f<g<h<i<A<A<B
+Tutor> 
+00300020    3c 42 3c 43 3c 43 3c 44 3c 44 3c 45 3c 45 3c 46 <B<C<C<D<D<E<E<F
+Tutor> 
+00300030    3c 46 3c 47 3c 47 3c 48 3c 48 3c 49 3c 49 3c 4a <F<G<G<H<H<I<I<J
+Tutor> 
+00300040    3c 4a 3c 4b 3c 4b 3c 4c 3c 4c 3c 4d 3c 4d 3c 4e <J<K<K<L<L<M<M<N
+Tutor> exit
+No such command: exit, use h command for help
+Tutor> 
+Tutor> quit
+No such command: quit, use h command for help
+Tutor> h
+Display help      : H [command]
+Register Display  : RD [ALL]
+Register Set      : RS <reg> <val>
+Memory Display    : MD <addr>
+Memory DW Display : MDD <addr>
+Memory Set        : MS <addr> <val> [<val>...]
+Port Display      : PD <port>
+Port Set          : PS <port> <val> [<val>...]
+Device Display    : DD
+Device Set        : DS <dev> HL|CON|INIT|BOOT|BAUD <bps>
+Device TestPattern: DT <dev> [HWFC|SWFC|NONE] [<linecount>]
+Transparent Mode  : TM [<escapechar>]
+Download          : LO
+Go, start/resume  : GO [<addr>]
+Disp/Set breakpt  : B [<addr>]
+Delete breakpt    : D [<addr>]
+Trace             : T
+Remote gdb        : GDB [<dev>]
+<dev> is KBMON|COM1|COM2...|CON|HL, CON for console, HL for hostline.
+<CR> repeats DT, MD, MDD, PD, and T commands.  Hex except baudrate.
+Tutor> 
+Quit handler: 
+killing process 1958 Leaving board #1
+]0;tuser@tutor-vserver: ~/hw1tuser@tutor-vserver:~/hw1$ exit
+exit
+
+Script done on Thu 23 Sep 2021 10:20:30 AM EDT
