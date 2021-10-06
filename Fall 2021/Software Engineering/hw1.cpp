@@ -5,7 +5,7 @@ int close, op1Chose, op2Chose = 0;
 int userInput,anxiety,day,pills,legs,steps,hours,weight,height;
 double temp,cals;
 
-void greet(){cout << "Health-o-Matic Options\n";
+void greet(){cout << "\n\nHealth-o-Matic Options\n";
       cout << "----------------------------\n";
       cout << "1.Taking a Walk!\n";
       cout << "2.Your Medications\n";
@@ -22,7 +22,7 @@ int askDay(){
     cout << "Enter day of week (1-7): ";
     cin >> day;
     if(day < 1 || day > 7){
-      cout << "error, read the prompt idiot.\n";
+      cout << "error, unreasonable input.\n";
     }
   } while(day < 1 || day > 7);
   return day;
@@ -32,7 +32,7 @@ int askLegs(){
     cout << "Enter legs (positive): ";
     cin >> legs;
     if(legs < 0){
-      cout << "error, read the prompt idiot.\n";
+      cout << "error, unreasonable input.\n";
     }
   } while(legs < 0);
     return legs;
@@ -42,7 +42,7 @@ int askAnxiety(){
     cout << "Enter anxiety level (1-10): ";
     cin >> anxiety;
     if(anxiety < 1 || anxiety > 10){
-      cout << "error, read the prompt idiot.\n";
+      cout << "error, unreasonable input.\n";
     }
   } while(anxiety < 1 || anxiety > 10);
   return anxiety;
@@ -52,12 +52,12 @@ int askHours(){
     cout << "Enter hours of sleep (0-24): ";
     cin >> hours;
     if(hours < 1 || hours > 24){
-      cout << "error, read the prompt idiot.\n";
+      cout << "error, unreasonable input.\n";
     }
   } while(hours < 1 || hours > 24);
   return hours;
 }
-int computePills(int anx, int d){
+int computePills(int d, int anx){
   pills = anx - d;
   if (pills > 0){
     return pills;    
@@ -75,19 +75,14 @@ int computeSteps(int l){
 
 }
 void walk() {
-  cout << "Steps: " << computeSteps(askLegs());
+  int x = computeSteps(askLegs());
+  cout << "Steps: " << x;
   op1Chose = 1; 
 }
 void meds() {
-  cout << "Pills: " << computePills(askAnxiety(), askDay());
+  int p = computePills(askDay(), askAnxiety());
+  cout << "Pills: " << p;
   op2Chose = 1;
-}
-void nap() {
-  if(op1Chose == 0 || op2Chose == 0){
-    cout << "error, missing data";
-  }else{
-    cout << "Minutes: " << computeNap(askHours(), steps, pills);
-  }
 }
 int computeNap(int h, int s, int p){
   if (pills == 0){
@@ -96,12 +91,12 @@ int computeNap(int h, int s, int p){
     return h+s/p;
   }
 }
-void calories() {
-  if (op1Chose == 0){
-    cout << "error, missing data.";
+void nap() {
+  if(op1Chose == 0 || op2Chose == 0){
+    cout << "error, missing data.\n";
   }else{
-    cals = computeCal(askWeight(), askHeight(), askTemp(), steps);
-    cout << "calories: " << cals;
+    int mins = computeNap(askHours(), steps, pills);
+    cout << "Minutes: " << mins;
   }
 }
 int askWeight(){
@@ -109,7 +104,7 @@ int askWeight(){
     cout << "Enter weight (50-500): ";
     cin >> weight;
     if(weight < 50 || weight > 500){
-      cout << "error, read the prompt idiot.\n";
+      cout << "error, unreasonable input.\n";
     }
   } while(weight < 50 || weight > 500);
   return weight;
@@ -119,7 +114,7 @@ int askHeight(){
     cout << "Enter height (20-90): ";
     cin >> height;
     if(height < 20 || height > 90){
-      cout << "error, read the prompt idiot.\n";
+      cout << "error, unreasonable input.\n";
     }
   } while(height < 20 || height > 90);
   return height;
@@ -129,13 +124,21 @@ double askTemp(){
     cout << "Enter room temperature (40-90): ";
     cin >> temp;
     if(temp < 40 || temp > 90){
-      cout << "error, read the prompt idiot.\n";
+      cout << "error, unreasonable input.\n";
     }
   } while(temp < 40 || temp > 90);
   return temp;
 }
-double computeCal(int w, int h, double t, int s){
+double computeCal(int s, double t, int h, int w){
   return 6*w*h+1/t+s;
+}
+void calories() {
+  if (op1Chose == 0){
+    cout << "error, missing data.\n";
+  }else{
+    cals = computeCal(steps, askTemp(), askHeight(), askWeight());
+    cout << "calories: " << cals;
+  }
 }
 int main() {
     while(close == 0){ 
