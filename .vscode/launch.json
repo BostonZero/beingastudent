@@ -4,15 +4,30 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
+        {
+            "type": "java",
+            "name": "Launch EchoClient",
+            "request": "launch",
+            "mainClass": "EchoClient",
+            "projectName": "beingastudent_72b1c182"
+        },
+        {
+            "type": "java",
+            "name": "Launch with Arguments Prompt",
+            "request": "launch",
+            "mainClass": "",
+            "args": "${command:SpecifyProgramArgs}"
+        },
         {
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "cwd" : "${workspaceFolder}/${relativeFileDirname}",
-            "args": [""]
+            "cwd": "${workspaceFolder}/${relativeFileDirname}",
+            "args": [
+                ""
+            ]
         }
     ]
 }
