@@ -1,0 +1,14 @@
+Introduction_to_Computing						1.1.0
+Applied_Discrete_Mathematics					2.2.0
+Intermediate_Computing_with_Data_Structures		2.1.0
+Programming_in_C								2.4.0
+Advanced_Data_Structures_and_Algorithms			3.1.0
+Computer_Architecture							3.4.1
+Intro_to_Software_Engineering					4.2.0
+Competitive_Programming							4.2.1
+Database_Application_Development				4.3.6
+Cybersecurity_in_the_Internet_of_Things			4.4.3
+Introduction_to_Operating_Systems				4.4.4
+Introduction_to_Internetworking					4.4.6
+Independent_Study								4.7.8
+Honors_Thesis									4.9.8
