@@ -4,14 +4,19 @@
 #define HW2_FUNCTIONS_H
 
 #include <iostream>
+#include <fstream>
+#include <string>
 using namespace std;
 
 //put them under here
 
 
 void testFoo(string thing);
-
-
+void genericGreet();
+int countFile();
+int getPathLength();
+int validate(int y1, int n1, int v1, int y2, int n2, int v2);
+int askBreak();
 
 
 
