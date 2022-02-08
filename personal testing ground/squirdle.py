@@ -1,14 +1,16 @@
 import csv
+from distutils.log import debug
 from operator import truediv
 from time import sleep
 from random import randrange
 import copy
-
+import logging
 
 def getDexInfo(dexset, searchme):
     temp = 0
     for entry in dexset:
         if(entry[0].lower() == searchme.lower()):
+            logging.debug(searchme + " found as: " + str(dexset[temp]))
             return dexset[temp]
         temp = temp+1
 
@@ -89,7 +91,6 @@ def printOutcome(g):
 
 def pareDex(wd, g):
     oldSize = len(wd)
-    tracker = 0
     for entry in wd:
         #check gen
         if guessStat[0] == 0:
@@ -97,6 +98,7 @@ def pareDex(wd, g):
                 pass
             else: 
                 try:
+                    logging.debug("deleting entry for {a} for a generation ruleout. {b} should equal {c} but is not".format(a = entry[0], b = g[1], c = entry[1]))
                     workingDex.remove(entry) 
                 except ValueError: 
                     pass
@@ -106,6 +108,7 @@ def pareDex(wd, g):
                 pass
             else: 
                 try:
+                    logging.debug("deleting entry for {a} for a generation ruleout. {b} should be greater than {c} but is not".format(a = entry[0], b = g[1], c = entry[1]))
                     workingDex.remove(entry) 
                 except ValueError: 
                     pass
@@ -115,69 +118,114 @@ def pareDex(wd, g):
                 pass
             else: 
                 try:
+                    logging.debug("deleting entry for {a} for a generation ruleout. {b} should be less than {c} but is not".format(a = entry[0], b = g[1], c = entry[1]))
                     workingDex.remove(entry) 
                 except ValueError: 
                     pass
                 continue
+
         #check height
         if guessStat[3] == 0:
-            if float(g[4]) == float(entry[4]):
-                pass
+            if float(g[4]) == float(entry[4]): pass
             else: 
                 try:
+                    logging.debug("deleting entry for {a} for a height ruleout. {b}({c}) should equal {a}({d}) but is not".format(a = entry[0], b = g[0],c = g[4],d = entry[4]))
                     workingDex.remove(entry) 
-                except ValueError: 
-                    pass
+                except ValueError: pass
                 continue
         elif guessStat[3] == 1:
-            if float(g[4]) > float(entry[4]):
-                pass
+            if float(g[4]) > float(entry[4]): pass
             else: 
                 try:
+                    logging.debug("deleting entry for {a} for a height ruleout. {b}({c}) should be greater than {a}({d}) but is not".format(a = entry[0], b = g[0],c = g[4],d = entry[4]))
                     workingDex.remove(entry)
-                except ValueError: 
-                    pass
+                except ValueError: pass
                 continue
         elif guessStat[3] == -1:
-            if float(g[4]) < float(entry[4]):
-                pass
+            if float(g[4]) < float(entry[4]): pass
             else: 
-                
-                try:workingDex.remove(entry) 
-                except ValueError: 
-                    pass
+                try:
+                    logging.debug("deleting entry for {a} for a height ruleout. {b}({c}) should be greater than {a}({d}) but is not".format(a = entry[0], b = g[0],c = g[4],d = entry[4]))
+                    workingDex.remove(entry) 
+                except ValueError: pass
                 continue
 
         #check weight
         if guessStat[4] == 0:
-            if float(g[5]) == float(entry[5]):
-                pass
+            if float(g[5]) == float(entry[5]): pass
             else: 
-                
                 try:
+                    logging.debug("deleting entry for {a} for a weight ruleout. {b}({c}) should be equal to {a}({d}) but is not".format(a = entry[0], b = g[0],c = g[5],d = entry[5]))
                     workingDex.remove(entry) 
-                except ValueError: 
-                    pass
+                except ValueError: pass
                 continue
         elif guessStat[4] == 1:
-            if float(g[5]) > float(entry[5]):
-                pass
+            if float(g[5]) > float(entry[5]): pass
             else: 
-                
                 try:
+                    logging.debug("deleting entry for {a} for a weight ruleout. {b}({c}) should be greater than {a}({d}) but is not".format(a = entry[0], b = g[0],c = g[5],d = entry[5]))
                     workingDex.remove(entry) 
-                except ValueError: 
-                    pass
+                except ValueError: pass
                 continue
         elif guessStat[4] == -1:
-            if float(g[5]) < float(entry[5]):
-                pass
+            if float(g[5]) < float(entry[5]): pass
             else: 
-                
                 try:
+                    logging.debug("deleting entry for {a} for a weight ruleout. {b}({c}) should be less than {a}({d}) but is not".format(a = entry[0], b = g[0],c = g[5],d = entry[5]))
                     workingDex.remove(entry) 
-                except ValueError: 
-                    pass
+                except ValueError: pass
+                continue
+
+
+        #check type1
+        if guessStat[1] == -1:
+            if g[2] == entry[3]: pass
+            else: 
+                try: 
+                    logging.debug("deleting entry for {a} for a type1(switch) ruleout. {b}({c}) should be the same as {a}({d}) but is not".format(a = entry[0], b = g[0],c = g[2],d = entry[3]))
+                    workingDex.remove(entry) 
+                except ValueError: pass
+                continue
+        elif guessStat[1] == 0:
+            if g[2] == entry[2]: pass
+            else: 
+                try: 
+                    logging.debug("deleting entry for {a} for a type1(match) ruleout. {b}({c}) should be the same as {a}({d}) but is not".format(a = entry[0], b = g[0],c = g[2],d = entry[2]))
+                    workingDex.remove(entry) 
+                except ValueError: pass
+                continue
+        elif guessStat[1] == 1:
+            if g[2] != entry[2]: pass
+            else: 
+                try: 
+                    logging.debug("deleting entry for {a} for a type1(false) ruleout. {b}({c}) should be different from {a}({d}) but is not".format(a = entry[0], b = g[0],c = g[2],d = entry[2]))
+                    workingDex.remove(entry) 
+                except ValueError: pass
+                continue
+        #check type2
+        if guessStat[2] == -1:
+            if g[3] == entry[2]: pass
+            else: 
+                try: 
+                    logging.debug("deleting entry for {a} for a type2(switch) ruleout. {b}({c}) should be the same as {a}({d}) but is not".format(a = entry[0], b = g[0],c = g[3],d = entry[2]))
+                    workingDex.remove(entry) 
+                except ValueError: pass
+                continue
+        elif guessStat[2] == 0:
+            if g[3] == entry[3]: pass
+            else: 
+                try: 
+                    logging.debug("deleting entry for {a} for a type1(match) ruleout. {b}({c}) should be the same as {a}({d}) but is not".format(a = entry[0], b = g[0],c = g[3],d = entry[3]))
+                    workingDex.remove(entry) 
+                except ValueError: pass
+                continue
+        elif guessStat[2] == 1:
+            if g[3] != entry[3]: pass
+            else: 
+                try: 
+                    logging.debug("deleting entry for {a} for a type1(false) ruleout. {b}({c}) should be different from{a}({d}) but is not".format(a = entry[0], b = g[0],c = g[3],d = entry[3]))
+                    workingDex.remove(entry) 
+                except ValueError: pass
                 continue
 
 
@@ -185,9 +233,8 @@ def pareDex(wd, g):
 
 
 
-
-
-    print("\n" + str(oldSize) + "-" + str(len(workingDex)) + " = " + str(oldSize-len(workingDex)) + " elimated!")
+    logging.info("old wd size: {a}\t new wd size: {b}\t elimation this round: {c}".format(a = str(oldSize), b = str(len(workingDex)),c = str(oldSize-len(workingDex))))
+    print("\n" + str(oldSize) + "-" + str(len(workingDex)) + " = " + str(oldSize-len(workingDex)) + " eliminated!")
 
 def lose():
     print("You failed to guess:")
@@ -201,6 +248,7 @@ def lose():
         print()
 
 cont = 1
+logging.basicConfig(filename= "debug.log", level=logging.DEBUG)
 while(cont):
     with open('pokedex.csv') as dexFile:
         #initialization of the dex
@@ -218,7 +266,9 @@ while(cont):
         guessStat = guessStatModel.copy()
         dex.remove(dex[0])
         workingDex = dex.copy()
-        target = dex[randrange(665)].copy()
+        #target = dex[randrange(665)].copy()
+        target = dex[27].copy()
+        logging.info("{a} selected as target".format(a = target[0]))
         while True:
             try:
                 guess1in = input("Make a lowercase guess: ")
@@ -359,7 +409,10 @@ while(cont):
         
         printOutcome(guess7)
         pareDex(workingDex.copy(), guess7.copy())
+        
         lose()
+        cont = int(input("continue playing?: "))
+        continue
         
 
 
