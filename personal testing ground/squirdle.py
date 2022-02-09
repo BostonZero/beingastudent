@@ -13,8 +13,7 @@ def getDexInfo(dexset, searchme):
             logging.debug(searchme + " found as: " + str(dexset[temp]))
             return dexset[temp]
         temp = temp+1
-
-                
+            
 def compare(val1,val2):
     if(val1 > val2):
         return -1
